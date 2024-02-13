@@ -1,0 +1,185 @@
+.mainContainer {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+    background-color: rgb(255, 255, 255);
+  }
+  .leftSection {
+    width: 276px;
+    height: 100%;
+  }
+  .rightSection {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+    width: 1090px;
+    height: 100%;
+  }
+  .topSection {
+    padding: 30px 30px 0px 30px;
+  }
+  .title {
+    color: #22333b;
+  }
+  .bottomSection {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-sizing: border-box;
+    height: 683px;
+    background-color: rgba(34, 51, 59, 0.1);
+    padding-top: 36px;
+    gap: 20px;
+  }
+  .userData {
+    width: 1018px;
+    height: 430px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .userData .title {
+    box-sizing: border-box;
+    padding: 4px 8px;
+  }
+  .form {
+    display: flex;
+    width: 998px;
+    height: 340px;
+  }
+  .formularioMain{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .formLeft {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    width: 343px;
+    height: 340px;
+  }
+  .formMiddle {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 343px;
+    height: auto;
+    gap: 5px;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    width: 343px;
+    height: 340px;
+  }
+  .btnAceptar {
+    text-align: center;
+    width: 270px;
+    height: 39px;
+    background-color: #22333b;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.2s all ease-in;
+    cursor: pointer;
+  }
+  .btnAceptar:hover {
+    background-color: #41697c;
+  }
+  .btnLimpiar {
+    text-align: center;
+    width: 270px;
+    height: 39px;
+    background-color: #c6ac8f;
+    border: none;
+    border-radius: 5px;
+    color: #000000;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.2s all ease-in;
+    cursor: pointer;
+  }
+  .btnLimpiar:hover {
+    background-color: #948473;
+  }
+  .backButton{
+    text-align: center;
+    width: 180px;
+    height: 45px;
+    background-color: #22333b;
+    border: none;
+    border-radius: 5px;
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 16px;
+    transition: 0.2s all ease-in;
+    cursor: pointer;
+    margin-left: 20px;
+  }
+  .backButton:hover{
+    background-color: #436c80
+  }
+  .form input{
+    border: none;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    width: 270px;
+    height: 39px;
+    color: black;
+    font-weight: 700;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 0px 30px;
+    transition: 0.3s all ease-in;
+    outline: none;
+    border: 0.5px solid #000000;
+}
+.form input:focus{
+    border:1px solid #22333B;
+}
+.form input::placeholder{
+    color: rgba(10, 9, 8, 0.36);
+}
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none; /* Webkit browsers */
+  margin: 0; /* Optional: You may need to adjust the margin */
+}
+
+.selectSexo{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  height: 60px;
+  width: 270px;
+}
+.selectSexo select{
+  height: 39px;
+  border-radius: 8px;
+}
+.selectRol{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  gap: 3px;
+  height: 60px;
+  width: 270px;
+}
+.selectRol select{
+  height: 39px;
+  border-radius: 8px;
+}

@@ -1,0 +1,22 @@
+.inputText{
+    border: none;
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    width: 270px;
+    height: 39px;
+    color: black;
+    font-weight: 700;
+    border-radius: 8px;
+    box-sizing: border-box;
+    padding: 0px 30px;
+    transition: 0.3s all ease-in;
+    outline: none;
+    border: 0.5px solid #000000;
+}
+.inputText:focus{
+    border:1px solid #22333B;
+}
+.inputText::placeholder{
+    color: rgba(10, 9, 8, 0.36);
+}
