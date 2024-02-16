@@ -1,6 +1,6 @@
 import React from "react";
-import styles from'../styles/IniciarSesion.module.css'
-import Form from '../components/Form'
+import styles from "../styles/IniciarSesion.module.css";
+import Form from "../components/Form";
 
 const IniciarSesion = () => {
   return (

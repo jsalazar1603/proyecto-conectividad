@@ -49,16 +49,7 @@ const RegistrarUsuario = () => {
       idTipoUser: idTipoUser,
     });
     alert("Usuario agregado");
-    setNombre("");
-    setApellidos("");
-    setDNI("");
-    setEdad("");
-    setCorreo("");
-    setTelefono("");
-    setSexo("");
-    setUsuario("");
-    setContraseña("");
-    setIdTipoUser("");
+    handleClear();
 
     alert(
       `Usuario creado con Exito: \n  Usuario: ${username} \n Contraseña: ${defaultPassword}`
