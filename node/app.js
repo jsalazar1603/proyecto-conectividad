@@ -4,24 +4,32 @@ import db from './database/db.js'
 import userRoutes from './routes/routes.js'
 import proveedorRoutes from './routes/proveedorRoutes.js'
 
+const app=express();
+// Configuración del middleware y conexión a la base de datos...
 
-const app=express()
-app.use(cors())
-app.use(express.json())
-app.use('/users',userRoutes)
+app.use(cors());
+app.use(express.json());
 
+// conexion a la base de datos
 try {
     await db.authenticate()
     console.log('Conexion exitosa a la DB')
 } catch (error) {
     console.log(`El error de conexion es : ${error}`)
 }
+
+//Rutas para usuarios
+app.use('/users',userRoutes);
+
+//Rutas para proveedores
+app.use('/proveedor',proveedorRoutes);
+
+//Ruta de prueba
 app.get('/',(req,res)=>{
    res.send('HOLA MUNDO')
 })
 
-app.use('/proveedor',proveedorRoutes);
-
+// Iniciar el servidor
 app.listen(8000,()=>{
     console.log('Server UP running in http://localhost:8000/')
-})
+});

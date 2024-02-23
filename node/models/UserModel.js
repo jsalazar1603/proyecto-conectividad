@@ -11,7 +11,7 @@ const UserModel = db.define('usuarios',{
     telefono:{type:DataTypes.INTEGER},
     sexo:{type:DataTypes.STRING},
     usuario:{type:DataTypes.STRING},
-   contraseña:{type:DataTypes.STRING},
+    contraseña:{type:DataTypes.STRING},
     idTipoUser:{type:DataTypes.STRING},
     estado:{type:DataTypes.BOOLEAN}
 },{
