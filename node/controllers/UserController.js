@@ -49,11 +49,43 @@ export const updateUser = async (req, res) => {
 // Eliminar un registro
 export const deleteUser = async (req, res) => {
     try {
-        await UserModel.destroy({
+        await UserModel.update({estado:false},{
             where: { id: req.params.id }
         });
-        res.json({ message: "Registro eliminado correctamente" });
+        res.json({ message: "Registro actualizado correctamente" });
     } catch (error) {
         res.json({ message: error.message });
     }
 }
+
+export const activateUser = async (req, res) => {
+    try {
+        await UserModel.update({estado:true},{
+            where: { id: req.params.id }
+        });
+        res.json({ message: "Registro actualizado correctamente." });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
+export const validateDni = async (req, res) => {
+    const {dni} = req.body; 
+    console.log("dni:",dni)
+    try {
+      // Buscar el usuario en la base de datos por nombre de usuario y contraseña
+      const user = await UserModel.findOne({ where: { dni: dni } })
+      console.log("dni:",dni)
+      if (dni==user.dataValues.dni) {
+        // Usuario autenticado
+        res.status(200).json({ success: true, message: 'Dni ya registrado en la base de datos',data:user });
+      } else {
+        // Credenciales incorrectas
+        res.status(200).json({ success: false, message: 'Dni valido' });
+      }
+    } catch (error) {
+      // Manejo de errores
+      console.error('Error al iniciar sesión:', error);
+      res.status(500).json({ success: false, message: 'Error al iniciar sesión. Por favor, inténtelo de nuevo más tarde.' });
+    }
+  };
+

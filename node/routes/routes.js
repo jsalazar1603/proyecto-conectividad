@@ -1,5 +1,5 @@
 import express from 'express'
-import { createUser, deleteUser, getAllUsers, getUser, updateUser } from '../controllers/UserController.js';
+import { activateUser, createUser, deleteUser, getAllUsers, getUser, updateUser, validateDni } from '../controllers/UserController.js';
 import { loginUser } from '../controllers/AuthController.js';
 
 const router = express.Router();
@@ -10,5 +10,8 @@ router.post('/',createUser)
 router.put('/:id',updateUser)
 router.delete('/:id',deleteUser)
 router.post('/login', loginUser);
+router.put('/activate/:id',activateUser)
+router.post('/validate/:id',validateDni)
+
 
 export default router

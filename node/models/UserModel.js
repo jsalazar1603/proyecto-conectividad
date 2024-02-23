@@ -12,7 +12,8 @@ const UserModel = db.define('usuarios',{
     sexo:{type:DataTypes.STRING},
     usuario:{type:DataTypes.STRING},
    contraseña:{type:DataTypes.STRING},
-    idTipoUser:{type:DataTypes.STRING}
+    idTipoUser:{type:DataTypes.STRING},
+    estado:{type:DataTypes.BOOLEAN}
 },{
         timestamps: false // Deshabilitar marcas de tiempo
 })
