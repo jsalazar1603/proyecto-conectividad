@@ -1,21 +1,20 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/GestionarUsuario.module.css";
 import MenuLateral from "../components/MenuLateral";
-import { UserBag, UserPlus } from "iconoir-react";
+import { Package, Shop, User, UserBag, UserPlus } from "iconoir-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
 const URI = "http://localhost:8000/users/";
 
 const tipoUsuarioMap = {
-  1: 'Administrador',
-  2: 'Vendedor',
+  1: "Administrador",
+  2: "Vendedor",
 };
 const GestionarUsuario = () => {
   const [users, setUser] = useState([]);
   const [conteoHombres, setConteoHombres] = useState(0);
   const [conteoMujeres, setConteoMujeres] = useState(0);
-
 
   useEffect(() => {
     getUsers();
@@ -48,8 +47,28 @@ const GestionarUsuario = () => {
 
   return (
     <section className={styles.mainContainer}>
-      <div className={styles.leftSection}>
-        <MenuLateral />
+      <div className={styles.menuLateral}>
+        <div className={styles.content}>
+          <h1 className={styles.titlebrand}>Negocios e inversiones JR</h1>
+          <section className={styles.optionsMenu}>
+            <Link to="/gestionarUsuario">
+              <div className={styles.selectedOption}>
+                <User size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Usuario</span>
+              </div>
+            </Link>
+            <Link to='/gestionarproveedor'>
+              <div className={styles.option}>
+                <Shop size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Proveedor</span>
+              </div>
+            </Link>
+            <div className={styles.option}>
+              <Package size="24" color="#ffffff" />
+              <span className={styles.optionName}>Gestionar Producto</span>
+            </div>
+          </section>
+        </div>
       </div>
       <div className={styles.rightSection}>
         <div className={styles.topSection}>
@@ -77,9 +96,13 @@ const GestionarUsuario = () => {
                 {users.map((user) => (
                   <div key={user.id}>
                     <div className={styles.userData1}>
-                      <span className={styles.userName}>{user.nombre} {user.apellidos}</span>
+                      <span className={styles.userName}>
+                        {user.nombre} {user.apellidos}
+                      </span>
                       <div className={styles.roleName}>
-                        <span className={styles.text}>{tipoUsuarioMap[user.idTipoUser]}</span>
+                        <span className={styles.text}>
+                          {tipoUsuarioMap[user.idTipoUser]}
+                        </span>
                       </div>
                       <span className={styles.telephone}>{user.telefono}</span>
                       <span className={styles.age}>{user.edad} años</span>
@@ -92,7 +115,7 @@ const GestionarUsuario = () => {
             <div className={styles.stadistic}>
               <div className={styles.usersNumber}>
                 <h2 className={styles.title}>Número de trabajadores</h2>
-                <div className={styles.content}>
+                <div className={styles.contentNumber}>
                   <div className={styles.male}>
                     <div className={styles.color}></div>
                     <span className={styles.text}>Hombres</span>

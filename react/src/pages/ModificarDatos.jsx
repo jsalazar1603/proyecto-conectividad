@@ -3,6 +3,7 @@ import styles from "../styles/RegistrarUsuario.module.css";
 import MenuLateral from "../components/MenuLateral";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
+import { Package, Shop, User } from "iconoir-react";
 
 const URI = "http://localhost:8000/users/";
 
@@ -37,7 +38,7 @@ const ModificarDatos = () => {
       idTipoUser: idTipoUser,
     });
 
-    alert("Datos actualizados correctamente")
+    alert("Datos actualizados correctamente");
 
     setNombre("");
     setApellidos("");
@@ -88,8 +89,28 @@ const ModificarDatos = () => {
   };
   return (
     <section className={styles.mainContainer}>
-      <div className={styles.leftSection}>
-        <MenuLateral />
+      <div className={styles.menuLateral}>
+        <div className={styles.content}>
+          <h1 className={styles.titlebrand}>Negocios e inversiones JR</h1>
+          <section className={styles.optionsMenu}>
+            <Link to="/gestionarUsuario">
+              <div className={styles.selectedOption}>
+                <User size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Usuario</span>
+              </div>
+            </Link>
+            <Link to="/gestionarproveedor">
+              <div className={styles.option}>
+                <Shop size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Proveedor</span>
+              </div>
+            </Link>
+            <div className={styles.option}>
+              <Package size="24" color="#ffffff" />
+              <span className={styles.optionName}>Gestionar Producto</span>
+            </div>
+          </section>
+        </div>
       </div>
       <div className={styles.rightSection}>
         <div className={styles.topSection}>

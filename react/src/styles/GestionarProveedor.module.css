@@ -1,0 +1,183 @@
+.mainContainer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+.menuLateral {
+  width: 276px;
+  height: 100%;
+}
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 1090px;
+  height: 100%;
+}
+.topSection {
+  padding: 30px 30px 0px 30px;
+}
+.title {
+  color: #22333b;
+}
+.options {
+  display: flex;
+  justify-content: center;
+  gap: 117px;
+  width: 100%;
+  height: 170px;
+}
+.option1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 262px;
+  gap: 31px;
+  box-sizing: border-box;
+  padding: 41px 36px 41px 36px;
+  background-color: #22333b;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s all ease-out;
+}
+.option1:hover {
+  background-color: #3b5b69;
+}
+.option1 .optionText {
+  color: #ffffff;
+  width: 109px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.option2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 262px;
+  gap: 31px;
+  box-sizing: border-box;
+  padding: 41px 36px 41px 36px;
+  background-color: #5e503f;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s all ease-out;
+}
+.option2:hover {
+  background-color: #866e51;
+}
+.option2 .optionText {
+  color: #ffffff;
+  width: 109px;
+  font-weight: 700;
+}
+.option1 .optionText:visited {
+  text-decoration: none;
+}
+.bottomSection {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 36px 32px 36px 32px;
+  height: 483px;
+  background-color: rgba(34, 51, 59, 0.1);
+}
+.proveedorInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.proveedorList {
+  display: flex;
+  flex-direction: column;
+  width: 835px;
+  height: auto;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.proveedorList .title {
+  width: 242px;
+  height: 33px;
+  font-size: 16px;
+  padding: 8px;
+}
+.proveedoresTable {
+  display: flex;
+  width: 100%;
+  height: 134px;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+.proveedorData1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 30px;
+  font-size: 13px;
+  box-sizing: border-box;
+  padding: 10px 10px;
+}
+.proveedorName {
+  width: 210px;
+}
+
+.proveedorTelephone {
+  width: 65px;
+}
+.proveedorWeb{
+  width: 180px;
+}
+.proveedorEmail{
+  width: 150px;
+}
+.content {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 276px;
+  background-color: #0a0908;
+  border-radius: 0px 10px 10px 0px;
+  box-sizing: border-box;
+  gap: 86px;
+}
+.titlebrand {
+  color: #eae0d5;
+  font-size: 24px;
+  padding: 30px 30px 0px 30px;
+}
+.selectedOption {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #22333b;
+  width: 100%;
+  height: 40px;
+  gap: 25px;
+  cursor: pointer;
+}
+.optionsMenu .option {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 40px;
+  gap: 25px;
+  cursor: pointer;
+  transition: all 0.2s ease-in;
+}
+.optionsMenu .option:hover{
+  background-color: #5e503f;
+}
+
+.optionName {
+  color: #eae0d5;
+  font-size: 14px;
+  font-weight: 700;
+}

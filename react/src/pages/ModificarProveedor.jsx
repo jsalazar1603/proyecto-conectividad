@@ -1,38 +1,32 @@
 import React, { useState, useEffect } from "react";
-import styles from "../styles/ModificarUsuario.module.css";
+import styles from "../styles/ModificarProveedor.module.css";
 import { Package, Search, Shop, User } from "iconoir-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const URI = "http://localhost:8000/users/";
+const URI = "http://localhost:8000/proveedor/";
 
-const tipoUsuarioMap = {
-  1: "Administrador",
-  2: "Vendedor",
-};
-
-
-const ModificarUsuario = () => {
-  const [users, setUser] = useState([]);
+const ModificarProveedor = () => {
+  const [proveedores, setProveedores] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [showAllUsers, setShowAllUsers] = useState(true);
+  const [showAllProveedores, setShowAllProveedores] = useState(true);
   const [showNoResults, setShowNoResults] = useState(false);
 
   useEffect(() => {
-    getUsers();
+    getProveedores();
   }, []);
 
-  console.log(users);
-  //procedimiento para mostrar todos los usuarios
-  const getUsers = async () => {
+  console.log(proveedores);
+
+  const getProveedores = async () => {
     const res = await axios.get(URI);
-    setUser(res.data);
+    setProveedores(res.data);
   };
 
-  const searchUsers = () => {
-    return users.filter((user) => {
-      const fullName = `${user.nombre} ${user.apellidos}`.toLowerCase();
+  const searchProveedores = () => {
+    return proveedores.filter((proveedor) => {
+      const fullName = `${proveedor.nombre}`.toLowerCase();
       return fullName.includes(searchQuery.toLowerCase());
     });
   };
@@ -42,86 +36,53 @@ const ModificarUsuario = () => {
   };
 
   const handleSearchClick = () => {
-    const results = searchUsers();
+    const results = searchProveedores();
     setSearchResults(results);
-    setShowAllUsers(false);
+    setShowAllProveedores(false);
     setShowNoResults(results.length === 0);
   };
-
   const handleListAllClick = () => {
-    setShowAllUsers(true);
+    setShowAllProveedores(true);
   };
 
-  const renderUsers = () => {
-    if (searchQuery !== "" && !showAllUsers) {
-      return searchResults.map((user) => (
-        <div key={user.id}>
-          <div className={styles.userData1}>
-            <span className={styles.name}>{user.nombre}</span>
-            <span className={styles.lastname}>{user.apellidos}</span>
-            <span className={styles.idTipoUser}>
-              {tipoUsuarioMap[user.idTipoUser]}
-            </span>
-            {user.estado ? (
-              <span className={styles.state}>Activo</span>
-            ) : (
-              <span className={styles.state}>Inhabilitado</span>
-            )}
-            <Link to={`/modificardatos/${user.id}`}>
+  const renderProveedores = () => {
+    if (searchQuery !== "" && !showAllProveedores) {
+      return searchResults.map((proveedor) => (
+        <div key={proveedor.id}>
+          <div className={styles.proveedorData1}>
+            <span className={styles.name}>{proveedor.nombre}</span>
+            <span className={styles.usuario}>{proveedor.correo}</span>
+            <span className={styles.telefono}>{proveedor.telefono}</span>
+            <Link to={`/modificardatosproveedor/${proveedor.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
-            {
-              user.estado ? (
-                <button
-              onClick={() => deleteUser(user.id)}
+            <button
+              onClick={() => deleteProveedor(proveedor.id)}
               className={styles.btnDardebaja}
             >
               Dar de baja
             </button>
-              ) : <button
-              onClick={() => activateUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Activar cuenta
-            </button>
-            }
             {/* Agregar más campos si es necesario */}
           </div>
           <hr />
         </div>
       ));
     } else {
-      return users.map((user) => (
-        <div key={user.id}>
-          <div className={styles.userData1}>
-            <span className={styles.name}>{user.nombre}</span>
-            <span className={styles.lastname}>{user.apellidos}</span>
-            <span className={styles.idTipoUser}>
-              {tipoUsuarioMap[user.idTipoUser]}
-            </span>
-            {user.estado ? (
-              <span className={styles.state}>Activo</span>
-            ) : (
-              <span className={styles.state}>Inhabilitado</span>
-            )}
-            <Link to={`/modificardatos/${user.id}`}>
+      return proveedores.map((proveedor) => (
+        <div key={proveedor.id}>
+          <div className={styles.proveedorData1}>
+            <span className={styles.name}>{proveedor.nombre}</span>
+            <span className={styles.usuario}>{proveedor.correo}</span>
+            <span className={styles.cellphone}>{proveedor.telefono}</span>
+            <Link to={`/modificardatosproveedor/${proveedor.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
-            {
-              user.estado ? (
-                <button
-              onClick={() => deleteUser(user.id)}
+            <button
+              onClick={() => deleteProveedor(proveedor.id)}
               className={styles.btnDardebaja}
             >
               Dar de baja
             </button>
-              ) : <button
-              onClick={() => activateUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Activar cuenta
-            </button>
-            }
             {/* Agregar más campos si es necesario */}
           </div>
           <hr />
@@ -129,20 +90,11 @@ const ModificarUsuario = () => {
       ));
     }
   };
-
-  //procedimiento para eliminar un usuario
-  const deleteUser = async (id) => {
+  const deleteProveedor = async (id) => {
     await axios.delete(`${URI}${id}`);
-    getUsers();
-    alert("Usuario eliminado");
+    getProveedores();
+    alert("Proveedor eliminado");
   };
-
-  const activateUser = async (id) => {
-    await axios.put(`${URI}activate/${id}`);
-    getUsers();
-    alert("Usuario activado");
-  };
-
   return (
     <section className={styles.mainContainer}>
       <div className={styles.menuLateral}>
@@ -150,13 +102,13 @@ const ModificarUsuario = () => {
           <h1 className={styles.titlebrand}>Negocios e inversiones JR</h1>
           <section className={styles.optionsMenu}>
             <Link to="/gestionarUsuario">
-              <div className={styles.selectedOption}>
+              <div className={styles.option}>
                 <User size="24" color="#ffffff" />
                 <span className={styles.optionName}>Gestionar Usuario</span>
               </div>
             </Link>
             <Link to="/gestionarproveedor">
-              <div className={styles.option}>
+              <div className={styles.selectedOption}>
                 <Shop size="24" color="#ffffff" />
                 <span className={styles.optionName}>Gestionar Proveedor</span>
               </div>
@@ -170,11 +122,11 @@ const ModificarUsuario = () => {
       </div>
       <div className={styles.rightSection}>
         <div className={styles.topSection}>
-          <h2 className={styles.title}>MODIFICAR USUARIO</h2>
+          <h2 className={styles.title}>MODIFICAR PROVEEDOR</h2>
         </div>
         <div className={styles.bottomSection}>
           <div className={styles.container}>
-            <h2 className={styles.title}>Buscar Usuario</h2>
+            <h2 className={styles.title}>Buscar Proveedor</h2>
             <div className={styles.search}>
               <div className={styles.searchBar}>
                 <input
@@ -188,18 +140,17 @@ const ModificarUsuario = () => {
               <button onClick={handleSearchClick} className={styles.btnBuscar}>
                 Buscar
               </button>
-              <button className={styles.btnBuscar} onClick={handleListAllClick}>
+              <button className={styles.btnListar} onClick={handleListAllClick}>
                 Listar
               </button>
             </div>
             <div className={styles.table}>
               <div className={styles.columns}>
                 <span className={styles.name}>Nombre</span>
-                <span className={styles.lastname}>Apellidos</span>
-                <span className={styles.role}>Rol</span>
-                <span className={styles.state}>Estado</span>
+                <span className={styles.correo}>Correo</span>
+                <span className={styles.cellphone}>telefono</span>
               </div>
-              {renderUsers()}
+              {renderProveedores()}
               {showNoResults && ( // Utiliza el estado showNoResults para controlar la visibilidad del mensaje
                 <div className={styles.noResults}>
                   No se encontraron coincidencias
@@ -207,7 +158,7 @@ const ModificarUsuario = () => {
               )}
             </div>
           </div>
-          <Link to="/gestionarusuario">
+          <Link to="/gestionarproveedor">
             <button className={styles.btnBackbutton}>Volver</button>
           </Link>
         </div>
@@ -216,4 +167,4 @@ const ModificarUsuario = () => {
   );
 };
 
-export default ModificarUsuario;
+export default ModificarProveedor;
