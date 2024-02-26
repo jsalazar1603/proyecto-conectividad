@@ -6,9 +6,9 @@ export const loginUser = async (req, res) => {
   console.log("usuario:",usuario,"contraseña:",contraseña)
   try {
     // Buscar el usuario en la base de datos por nombre de usuario y contraseña
-    const user = await User.findOne({ where: { usuario: usuario, } })
+    const user = await User.findOne({ where: { usuario: usuario, contraseña:contraseña,estado:true } })
     console.log("user:",user)
-    if (user&&contraseña==user.dataValues.contraseña) {
+    if (user) {
       // Usuario autenticado
       res.status(200).json({ success: true, message: 'Inicio de sesión exitoso',data:user });
     } else {
