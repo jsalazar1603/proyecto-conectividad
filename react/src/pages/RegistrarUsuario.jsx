@@ -36,9 +36,8 @@ const RegistrarUsuario = () => {
     const username = `${firstLetterOfName}${apellidos
       .split(" ")[0]
       .toLowerCase()}`;
-    
-    
-    await axios.post(URI, {
+
+    const respuesta = await axios.post(URI, {
       nombre: nombre,
       apellidos: apellidos,
       dni: dni,
@@ -50,12 +49,19 @@ const RegistrarUsuario = () => {
       contraseña: defaultPassword,
       idTipoUser: idTipoUser,
     });
-    alert("Usuario agregado");
-    handleClear();
 
-    alert(
-      `Usuario creado con Exito: \n  Usuario: ${username} \n Contraseña: ${defaultPassword}`
-    );
+    console.log("respuesta: ", respuesta);
+
+    if (respuesta.data.ok) {
+      alert("Usuario agregado");
+      handleClear();
+
+      alert(
+        `Usuario creado con Exito: \n  Usuario: ${username} \n Contraseña: ${defaultPassword}`
+      );
+      } else{
+        alert("Ya existe un usuario con este dni");
+      }
   };
 
   const handleClear = () => {
@@ -182,6 +188,7 @@ const RegistrarUsuario = () => {
                         </option>
                       ))}
                     </select>
+                    
                   </div>
                 </div>
                 <div className={styles.buttons}>
