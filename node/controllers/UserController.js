@@ -58,8 +58,7 @@ export const deleteUser = async (req, res) => {
     }
 }
 
-///////////////////////////// No entender esto es lo mismo que actualizar pero con un estado diferente
-//// O es para Actualizar el estado de un usuario
+///Actualizar el estado de un usuario
 
 export const activateUser = async (req, res) => {
     try {
@@ -90,6 +89,27 @@ export const createUserValDni = async (req, res) => {
         res.json({ message: "error al conectar con la base de datos" });
     }
 
+}
+
+//Actualiar un usuario validado por dni
+export const updateUserValDni = async (req, res) => {
+    try {
+        const dni = await UserModel.findOne({
+            where: {
+                dni: req.body.dni
+            }
+        })
+        if (!dni) {
+            await UserModel.update(req.body, {
+                where: { id: req.params.id }
+            });
+            res.json({ message: "Registro actualizado exitosamente",ok:true });
+        } else {
+            res.json({ message: "El dni ya existe",ok:false});
+        }
+    } catch (error) {
+        res.json({ message: "error al conectar con la base de datos" });
+    }
 }
 
 /*
