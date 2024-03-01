@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import styles from "../styles/RegistrarUsuario.module.css";
-import MenuLateral from "../components/MenuLateral";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
 
@@ -18,14 +17,14 @@ const ModificarDatos = () => {
   const [usuario, setUsuario] = useState("");
   const [contraseña, setContraseña] = useState("");
   const [idTipoUser, setIdTipoUser] = useState("");
-  const navigate = useNavigate();
 
   const { id } = useParams();
 
   //procedimiento para actualizar
   const update = async (e) => {
     e.preventDefault();
-    await axios.put(URI + id, {
+
+    const respuesta = await axios.put(URI + id, {
       nombre: nombre,
       apellidos: apellidos,
       dni: dni,
@@ -38,18 +37,24 @@ const ModificarDatos = () => {
       idTipoUser: idTipoUser,
     });
 
-    alert("Datos actualizados correctamente");
+    console.log("respuesta:", respuesta);
 
-    setNombre("");
-    setApellidos("");
-    setDNI("");
-    setEdad("");
-    setCorreo("");
-    setTelefono("");
-    setSexo("");
-    setUsuario("");
-    setContraseña("");
-    setIdTipoUser("");
+    if (respuesta.data.ok) {
+      alert("Datos actualizados correctamente");
+
+      setNombre("");
+      setApellidos("");
+      setDNI("");
+      setEdad("");
+      setCorreo("");
+      setTelefono("");
+      setSexo("");
+      setUsuario("");
+      setContraseña("");
+      setIdTipoUser("");
+    } else{
+      alert("El dni ya se encuentra registrado en el sistema");
+    }
   };
 
   useEffect(() => {
