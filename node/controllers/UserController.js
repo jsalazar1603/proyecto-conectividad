@@ -82,10 +82,9 @@ export const createUserValDni = async (req, res) => {
         })
         if (!dni) {
             await UserModel.create(req.body);
-            res.json({ message: "Registro creado exitosamente" });
+            res.json({ message: "Registro creado exitosamente",ok:true });
         } else {
-            
-            res.json({ message: "El dni ya existe" });
+            res.json({ message: "El dni ya existe",ok:false});
         }
     } catch (error) {
         res.json({ message: "error al conectar con la base de datos" });
