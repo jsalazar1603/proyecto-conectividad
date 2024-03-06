@@ -52,13 +52,15 @@ const Form = () => {
           type="password"
           text="Ingrese su contraseña"
         />
+        <div className={styles.errorDiv}>
+        {refused ? <p className={styles.errorMessage}>Usuario y/o contraseña incorrectos</p> : null}
+        </div>
         <Button
           handleClick={handleClick}
           valueUser={dataUsuario}
           text="Iniciar Sesión"
         />
       </div>
-      {refused ? <p>Credenciales Incorrectas</p> : null}
     </>
   );
 };

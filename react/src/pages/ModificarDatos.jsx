@@ -10,6 +10,7 @@ const ModificarDatos = () => {
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [dni, setDNI] = useState("");
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [edad, setEdad] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
@@ -20,15 +21,39 @@ const ModificarDatos = () => {
 
   const { id } = useParams();
 
-  //procedimiento para actualizar
+  // Función para calcular la edad a partir de la fecha de nacimiento
+  const calcularEdad = (fechaNacimientoString) => {
+    const fechaNacimiento = new Date(fechaNacimientoString);
+    const hoy = new Date();
+    let edad = hoy.getFullYear() - fechaNacimiento.getFullYear();
+    const mesActual = hoy.getMonth();
+    const mesNacimiento = fechaNacimiento.getMonth();
+    const diaActual = hoy.getDate();
+    const diaNacimiento = fechaNacimiento.getDate();
+
+    // Restar un año si aún no se ha alcanzado el mes y el día de nacimiento
+    if (
+      mesActual < mesNacimiento ||
+      (mesActual === mesNacimiento && diaActual < diaNacimiento)
+    ) {
+      edad--;
+    }
+
+    return edad;
+  };
+
+  // Función para actualizar los datos del usuario
   const update = async (e) => {
     e.preventDefault();
+
+    const edadCalculada = calcularEdad(fechaNacimiento);
 
     const respuesta = await axios.put(URI + id, {
       nombre: nombre,
       apellidos: apellidos,
       dni: dni,
-      edad: edad,
+      fechaNacimiento: fechaNacimiento,
+      edad: edadCalculada,
       correo: correo,
       telefono: telefono,
       sexo: sexo,
@@ -42,9 +67,11 @@ const ModificarDatos = () => {
     if (respuesta.data.ok) {
       alert("Datos actualizados correctamente");
 
+      // Limpiar los campos después de la actualización
       setNombre("");
       setApellidos("");
       setDNI("");
+      setFechaNacimiento("");
       setEdad("");
       setCorreo("");
       setTelefono("");
@@ -52,21 +79,24 @@ const ModificarDatos = () => {
       setUsuario("");
       setContraseña("");
       setIdTipoUser("");
-    } else{
-      alert("El dni ya se encuentra registrado en el sistema");
+    } else {
+      alert("El DNI ya se encuentra registrado en el sistema");
     }
   };
 
+  // Obtener los datos del usuario por su ID al cargar el componente
   useEffect(() => {
     getUserById();
   }, []);
 
+  // Función para obtener los datos del usuario por su ID
   const getUserById = async () => {
     const res = await axios.get(URI + id);
     setNombre(res.data.nombre);
     setApellidos(res.data.apellidos);
     setDNI(res.data.dni);
-    setEdad(res.data.edad);
+    setFechaNacimiento(res.data.fechaNacimiento);
+    setEdad(res.data.edad); // Asignar la edad obtenida del servidor
     setCorreo(res.data.correo);
     setTelefono(res.data.telefono);
     setSexo(res.data.sexo);
@@ -80,10 +110,13 @@ const ModificarDatos = () => {
     { value: "1", label: "Administrador" },
     { value: "2", label: "Vendedor" },
   ];
+
+  // Función para limpiar los campos del formulario
   const handleClear = () => {
     setNombre("");
     setApellidos("");
     setDNI("");
+    setFechaNacimiento("");
     setEdad("");
     setCorreo("");
     setTelefono("");
@@ -92,6 +125,7 @@ const ModificarDatos = () => {
     setContraseña("");
     setIdTipoUser("");
   };
+
   return (
     <section className={styles.mainContainer}>
       <div className={styles.menuLateral}>
@@ -110,10 +144,12 @@ const ModificarDatos = () => {
                 <span className={styles.optionName}>Gestionar Proveedor</span>
               </div>
             </Link>
-            <div className={styles.option}>
-              <Package size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Producto</span>
-            </div>
+            <Link to="/gestionarproducto">
+              <div className={styles.option}>
+                <Package size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Producto</span>
+              </div>
+            </Link>
           </section>
         </div>
       </div>
@@ -127,7 +163,7 @@ const ModificarDatos = () => {
             <div className={styles.form}>
               <form onSubmit={update} className={styles.formularioMain}>
                 <div className={styles.formLeft}>
-                  <div className={styles.campo}>
+                  <div>
                     <label htmlFor="">Nombre</label>
                     <input
                       placeholder="Ingrese nombre"
@@ -155,12 +191,15 @@ const ModificarDatos = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="">Edad</label>
+                    <label htmlFor="">Fecha de Nacimiento</label>
                     <input
-                      placeholder="Ingrese edad"
-                      type="number"
-                      value={edad}
-                      onChange={(e) => setEdad(e.target.value)}
+                      placeholder="Ingrese fecha de nacimiento"
+                      type="date"
+                      value={fechaNacimiento}
+                      onChange={(e) => {
+                        setFechaNacimiento(e.target.value);
+                        setEdad(calcularEdad(e.target.value)); // Actualizar la edad al cambiar la fecha de nacimiento
+                      }}
                     />
                   </div>
                   <div>
@@ -207,14 +246,10 @@ const ModificarDatos = () => {
                     <label htmlFor="">Contraseña</label>
                     <input
                       placeholder="Ingrese Contraseña"
-                      type="texto"
+                      type="password"
                       value={contraseña}
                       onChange={(e) => setContraseña(e.target.value)}
                     />
-                  </div>
-                  <div>
-                    <label htmlFor="">Verifique Contraseña</label>
-                    <input placeholder="Verifique contraseña" type="password" />
                   </div>
                   <div className={styles.selectRol}>
                     <label htmlFor="">Rol</label>

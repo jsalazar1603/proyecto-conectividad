@@ -11,7 +11,7 @@ const RegistrarUsuario = () => {
   const [nombre, setNombre] = useState("");
   const [apellidos, setApellidos] = useState("");
   const [dni, setDNI] = useState("");
-  const [edad, setEdad] = useState("");
+  const [fechaNacimiento, setFechaNacimiento] = useState("");
   const [correo, setCorreo] = useState("");
   const [telefono, setTelefono] = useState("");
   const [sexo, setSexo] = useState("");
@@ -25,6 +25,16 @@ const RegistrarUsuario = () => {
     { value: "2", label: "Vendedor" },
   ];
 
+  const calcularEdad = (fechaNacimiento) => {
+    const hoy = new Date();
+    const fechaNac = new Date(fechaNacimiento);
+    let edad = hoy.getFullYear() - fechaNac.getFullYear();
+    const mes = hoy.getMonth() - fechaNac.getMonth();
+    if (mes < 0 || (mes === 0 && hoy.getDate() < fechaNac.getDate())) {
+      edad--;
+    }
+    return edad;
+  };
   const store = async (e) => {
     e.preventDefault();
 
@@ -41,7 +51,7 @@ const RegistrarUsuario = () => {
       nombre: nombre,
       apellidos: apellidos,
       dni: dni,
-      edad: edad,
+      edad: calcularEdad(fechaNacimiento),
       correo: correo,
       telefono: telefono,
       sexo: sexo,
@@ -59,16 +69,16 @@ const RegistrarUsuario = () => {
       alert(
         `Usuario creado con Exito: \n  Usuario: ${username} \n Contraseña: ${defaultPassword}`
       );
-      } else{
-        alert("Ya existe un usuario con este dni");
-      }
+    } else {
+      alert("Ya existe un usuario con este dni");
+    }
   };
 
   const handleClear = () => {
     setNombre("");
     setApellidos("");
     setDNI("");
-    setEdad("");
+    setFechaNacimiento("");
     setCorreo("");
     setTelefono("");
     setSexo("");
@@ -88,14 +98,18 @@ const RegistrarUsuario = () => {
                 <span className={styles.optionName}>Gestionar Usuario</span>
               </div>
             </Link>
-            <div className={styles.option}>
-              <Shop size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Proveedor</span>
-            </div>
-            <div className={styles.option}>
-              <Package size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Producto</span>
-            </div>
+            <Link to="/gestionarproveedor">
+              <div className={styles.option}>
+                <Shop size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Proveedor</span>
+              </div>
+            </Link>
+            <Link to="/gestionarproducto">
+              <div className={styles.option}>
+                <Package size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Producto</span>
+              </div>
+            </Link>
           </section>
         </div>
       </div>
@@ -137,12 +151,12 @@ const RegistrarUsuario = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="">Edad</label>
+                    <label htmlFor="">Fecha de Nacimiento</label>
                     <input
-                      placeholder="Ingrese edad"
-                      type="number"
-                      value={edad}
-                      onChange={(e) => setEdad(e.target.value)}
+                      placeholder="Ingrese fecha de nacimiento"
+                      type="date"
+                      value={fechaNacimiento}
+                      onChange={(e) => setFechaNacimiento(e.target.value)}
                     />
                   </div>
                   <div>
@@ -188,7 +202,6 @@ const RegistrarUsuario = () => {
                         </option>
                       ))}
                     </select>
-                    
                   </div>
                 </div>
                 <div className={styles.buttons}>

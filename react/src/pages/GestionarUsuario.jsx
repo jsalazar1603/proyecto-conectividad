@@ -57,16 +57,18 @@ const GestionarUsuario = () => {
                 <span className={styles.optionName}>Gestionar Usuario</span>
               </div>
             </Link>
-            <Link to='/gestionarproveedor'>
+            <Link to="/gestionarproveedor">
               <div className={styles.option}>
                 <Shop size="24" color="#ffffff" />
                 <span className={styles.optionName}>Gestionar Proveedor</span>
               </div>
             </Link>
-            <div className={styles.option}>
-              <Package size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Producto</span>
-            </div>
+            <Link to="/gestionarproducto">
+              <div className={styles.option}>
+                <Package size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Producto</span>
+              </div>
+            </Link>
           </section>
         </div>
       </div>

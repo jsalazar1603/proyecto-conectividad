@@ -9,6 +9,9 @@ import GestionarProveedor from "./pages/GestionarProveedor";
 import RegistrarProveedor from "./pages/RegistrarProveedor";
 import ModificarProveedor from "./pages/ModificarProveedor";
 import ModificarDatosProveedor from "./pages/ModificarDatosProveedor";
+import GestionarProducto from "./pages/GestionarProducto";
+import RegistrarProducto from "./pages/RegistrarProducto";
+import ModificarProducto from "./pages/ModificarProducto";
 
 function App() {
   return (
@@ -24,6 +27,9 @@ function App() {
         <Route path="/registrarproveedor" element={<RegistrarProveedor />}></Route>
         <Route path="/modificarproveedor" element={<ModificarProveedor />}></Route>
         <Route path="/modificardatosproveedor/:id" element={<ModificarDatosProveedor />}></Route>
+        <Route path="/gestionarproducto" element={<GestionarProducto />}></Route>
+        <Route path="/registrarproducto" element={<RegistrarProducto />}></Route>
+        <Route path="/modificarproducto" element={<ModificarProducto/>}></Route>
       </Routes>
     </BrowserRouter>
   );

@@ -47,14 +47,18 @@ const RegistrarProveedor = () => {
                 <span className={styles.optionName}>Gestionar Usuario</span>
               </div>
             </Link>
-            <div className={styles.selectedOption}>
-              <Shop size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Proveedor</span>
-            </div>
-            <div className={styles.option}>
-              <Package size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Producto</span>
-            </div>
+            <Link to="/gestionarproveedor">
+              <div className={styles.selectedOption}>
+                <Shop size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Proveedor</span>
+              </div>
+            </Link>
+            <Link to="/gestionarproducto">
+              <div className={styles.option}>
+                <Package size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Producto</span>
+              </div>
+            </Link>
           </section>
         </div>
       </div>

@@ -1,38 +1,32 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/ModificarUsuario.module.css";
 import { Package, Search, Shop, User } from "iconoir-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const URI = "http://localhost:8000/users/";
+const URI = "http://localhost:8000/productos/";
 
-const tipoUsuarioMap = {
-  1: "Administrador",
-  2: "Vendedor",
-};
-
-
-const ModificarUsuario = () => {
-  const [users, setUser] = useState([]);
+const ModificarProducto = () => {
+  const [productos, setProductos] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [showAllUsers, setShowAllUsers] = useState(true);
+  const [showAllProductos, setShowAllProductos] = useState(true);
   const [showNoResults, setShowNoResults] = useState(false);
 
   useEffect(() => {
-    getUsers();
+    getProductos();
   }, []);
 
-  console.log(users);
-  //procedimiento para mostrar todos los usuarios
-  const getUsers = async () => {
+  console.log(productos);
+  //procedimiento para mostrar todos los productos
+  const getProductos = async () => {
     const res = await axios.get(URI);
-    setUser(res.data);
+    setProductos(res.data);
   };
 
-  const searchUsers = () => {
-    return users.filter((user) => {
-      const fullName = `${user.nombre} ${user.apellidos}`.toLowerCase();
+  const searchProductos = () => {
+    return productos.filter((producto) => {
+      const fullName = `${producto.nombre}`.toLowerCase();
       return fullName.includes(searchQuery.toLowerCase());
     });
   };
@@ -42,87 +36,77 @@ const ModificarUsuario = () => {
   };
 
   const handleSearchClick = () => {
-    const results = searchUsers();
+    const results = searchProductos();
     setSearchResults(results);
-    setShowAllUsers(false);
+    setShowAllProductos(false);
     setShowNoResults(results.length === 0);
   };
 
   const handleListAllClick = () => {
-    setShowAllUsers(true);
+    setShowAllProductos(true);
   };
 
-  const renderUsers = () => {
-    if (searchQuery !== "" && !showAllUsers) {
-      return searchResults.map((user) => (
-        <div key={user.id}>
+  const renderProductos = () => {
+    if (searchQuery !== "" && !showAllProductos) {
+      return searchResults.map((producto) => (
+        <div key={producto.id}>
           <div className={styles.userData1}>
-            <span className={styles.name}>{user.nombre}</span>
-            <span className={styles.lastname}>{user.apellidos}</span>
-            <span className={styles.idTipoUser}>
-              {tipoUsuarioMap[user.idTipoUser]}
-            </span>
-            {user.estado ? (
-              <span className={styles.state}>Activo</span>
-            ) : (
-              <span className={styles.state}>Inhabilitado</span>
-            )}
-            <Link to={`/modificardatos/${user.id}`}>
+            <span className={styles.name}>{producto.nombre}</span>
+            <span className={styles.lastname}>{producto.stock}</span>
+            <span className={styles.lastname}>{producto.precio}</span>
+           <span className={styles.lastname}>{producto.estado}</span>
+            <Link to={`/modificardatosproducto/${producto.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
-            {
-              user.estado ? (
-                <button
-              onClick={() => deleteUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Dar de baja
-            </button>
-              ) : <button
-              onClick={() => activateUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Activar cuenta
-            </button>
-            }
-            {/* Agregar más campos si es necesario */}
+            {producto.estado ? (
+              <button
+                 onClick={() => deleteProducto(producto.id)}
+                className={styles.btnDardebaja}
+              >
+                Inhabilitar
+              </button>
+            ) : (
+              <button
+                onClick={() => activateProducto(producto.id)}
+                className={styles.btnDardebaja}
+              >
+                Habilitar
+              </button>
+            )}
           </div>
           <hr />
         </div>
       ));
     } else {
-      return users.map((user) => (
-        <div key={user.id}>
+      return productos.map((producto) => (
+        <div key={producto.id}>
           <div className={styles.userData1}>
-            <span className={styles.name}>{user.nombre}</span>
-            <span className={styles.lastname}>{user.apellidos}</span>
-            <span className={styles.idTipoUser}>
-              {tipoUsuarioMap[user.idTipoUser]}
-            </span>
-            {user.estado ? (
+            <span className={styles.name}>{producto.nombre}</span>
+            <span className={styles.lastname}>{producto.stock}</span>
+            <span className={styles.lastname}>{producto.precio}</span>
+            {producto.estado ? (
               <span className={styles.state}>Activo</span>
             ) : (
               <span className={styles.state}>Inhabilitado</span>
             )}
-            <Link to={`/modificardatos/${user.id}`}>
+            <Link to={`/modificardatosproducto/${producto.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
-            {
-              user.estado ? (
-                <button
-              onClick={() => deleteUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Dar de baja
-            </button>
-              ) : <button
-              onClick={() => activateUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Activar cuenta
-            </button>
-            }
-            {/* Agregar más campos si es necesario */}
+            {producto.estado ? (
+              <button
+                onClick={() => deleteProducto(producto.id)}
+                className={styles.btnDardebaja}
+              >
+                Inhabilitar
+              </button>
+            ) : (
+              <button
+                onClick={() => activateProducto(producto.id)}
+                className={styles.btnDardebaja}
+              >
+                Habilitar
+              </button>
+            )}
           </div>
           <hr />
         </div>
@@ -130,17 +114,17 @@ const ModificarUsuario = () => {
     }
   };
 
-  //procedimiento para eliminar un usuario
-  const deleteUser = async (id) => {
+  //procedimiento para inhabilitar un producto
+  const deleteProducto = async (id) => {
     await axios.delete(`${URI}${id}`);
-    getUsers();
-    alert("Usuario inhabilitado");
+    getProductos();
+    alert("Producto Inhabilitado");
   };
 
-  const activateUser = async (id) => {
+  const activateProducto = async (id) => {
     await axios.put(`${URI}activate/${id}`);
-    getUsers();
-    alert("Usuario habilitado");
+    getProductos();
+    alert("Producto Habilitado");
   };
 
   return (
@@ -150,7 +134,7 @@ const ModificarUsuario = () => {
           <h1 className={styles.titlebrand}>Negocios e inversiones JR</h1>
           <section className={styles.optionsMenu}>
             <Link to="/gestionarUsuario">
-              <div className={styles.selectedOption}>
+              <div className={styles.option}>
                 <User size="24" color="#ffffff" />
                 <span className={styles.optionName}>Gestionar Usuario</span>
               </div>
@@ -162,7 +146,7 @@ const ModificarUsuario = () => {
               </div>
             </Link>
             <Link to="/gestionarproducto">
-              <div className={styles.option}>
+              <div className={styles.selectedOption}>
                 <Package size="24" color="#ffffff" />
                 <span className={styles.optionName}>Gestionar Producto</span>
               </div>
@@ -172,11 +156,11 @@ const ModificarUsuario = () => {
       </div>
       <div className={styles.rightSection}>
         <div className={styles.topSection}>
-          <h2 className={styles.title}>MODIFICAR USUARIO</h2>
+          <h2 className={styles.title}>MODIFICAR PRODUCTO</h2>
         </div>
         <div className={styles.bottomSection}>
           <div className={styles.container}>
-            <h2 className={styles.title}>Buscar Usuario</h2>
+            <h2 className={styles.title}>Buscar producto</h2>
             <div className={styles.search}>
               <div className={styles.searchBar}>
                 <input
@@ -197,11 +181,11 @@ const ModificarUsuario = () => {
             <div className={styles.table}>
               <div className={styles.columns}>
                 <span className={styles.name}>Nombre</span>
-                <span className={styles.lastname}>Apellidos</span>
-                <span className={styles.role}>Rol</span>
+                <span className={styles.lastname}>Stock</span>
+                <span className={styles.role}>Precio</span>
                 <span className={styles.state}>Estado</span>
               </div>
-              {renderUsers()}
+              {renderProductos()}
               {showNoResults && ( // Utiliza el estado showNoResults para controlar la visibilidad del mensaje
                 <div className={styles.noResults}>
                   No se encontraron coincidencias
@@ -209,7 +193,7 @@ const ModificarUsuario = () => {
               )}
             </div>
           </div>
-          <Link to="/gestionarusuario">
+          <Link to="/gestionarproducto">
             <button className={styles.btnBackbutton}>Volver</button>
           </Link>
         </div>
@@ -218,4 +202,4 @@ const ModificarUsuario = () => {
   );
 };
 
-export default ModificarUsuario;
+export default ModificarProducto;
