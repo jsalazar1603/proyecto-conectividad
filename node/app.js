@@ -3,6 +3,7 @@ import cors from 'cors'
 import db from './database/db.js'
 import userRoutes from './routes/routes.js'
 import proveedorRoutes from './routes/proveedorRoutes.js'
+import productoRoutes from './routes/productoRoutes.js'
 
 const app=express();
 // Configuración del middleware y conexión a la base de datos...
@@ -23,6 +24,9 @@ app.use('/users',userRoutes);
 
 //Rutas para proveedores
 app.use('/proveedor',proveedorRoutes);
+
+//Rutas para productos
+app.use('/producto',productoRoutes);
 
 //Ruta de prueba
 app.get('/',(req,res)=>{
