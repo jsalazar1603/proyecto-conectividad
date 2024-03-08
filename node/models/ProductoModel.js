@@ -3,10 +3,12 @@ import {DataTypes} from 'sequelize'
 const ProductoModel=db.define('productos',{
     nombre:{type:DataTypes.STRING},
     descripcion:{type:DataTypes.STRING},
+    marca:{type:DataTypes.STRING},
+    modelo:{type:DataTypes.STRING},
     stock:{type:DataTypes.INTEGER},
     precio:{type:DataTypes.FLOAT},
     estado:{type:DataTypes.BOOLEAN},
-    idproveedor:{type:DataTypes.STRING}, //Aqui deberia ser por integer pero no se como lo harias por ello le pongo string
+    idproveedor:{type:DataTypes.INTEGER}, //Aqui deberia ser por integer pero no se como lo harias por ello le pongo string
 },{
     timestamps:false //Deshabilitar marcas de tiempo   
 })
