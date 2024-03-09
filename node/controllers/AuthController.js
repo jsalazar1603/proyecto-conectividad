@@ -21,3 +21,15 @@ export const loginUser = async (req, res) => {
     res.status(500).json({ success: false, message: 'Error al iniciar sesión. Por favor, inténtelo de nuevo más tarde.' });
   }
 };
+
+//Cerrar sesion .... Intentando cerrar sesion chequear si funciona
+export const logoutUser = async (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(500).json({ success: false, message: 'Error al cerrar sesión. Por favor, inténtelo de nuevo más tarde.' });
+    } else {
+      res.status(200).json({ success: true, message: 'Sesión cerrada exitosamente' });
+    }
+  });
+};
+
