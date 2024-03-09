@@ -110,5 +110,3 @@ export const updateUserValDni = async (req, res) => {
         res.json({ message: "error al conectar con la base de datos" });
     }
 }
-
-//Actualizar

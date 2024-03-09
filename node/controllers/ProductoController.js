@@ -33,25 +33,6 @@ export const createProducto = async (req, res) => {
     }
 }
 
-// Crear un registro de producto validado por nombre
-export const createProductoValNom= async (req, res)=>{
-    try{
-        const nombre=await ProductoModel.findOne({
-            where:{
-               nombre:req.body.nombre
-            }
-        })
-        if(!nombre){
-            await ProductoModel.create(req.body);
-            return res.json({message:"Registro creado exitosamente"});
-        }else{
-            return res.json({message:"El producto ya existe"});
-        }
-    }catch(error){
-        res.json({message:"error al conectar con la base de datos"});
-    }
-}
-
 // Actualizar datos de un prroducto
 export const updateProducto = async (req, res) => {
     try {
