@@ -90,16 +90,15 @@ export const createUserValDni = async (req, res) => {
     }
 
 }
-
-//Actualiar un usuario validado por dni
+//Actualizar un usuario, que no me permita repetir el dni y que pueda actualiar cualquier otro campo
 export const updateUserValDni = async (req, res) => {
     try {
-        const dni = await UserModel.findOne({
+        const user = await UserModel.findOne({
             where: {
                 dni: req.body.dni
             }
         })
-        if (!dni) {
+        if (!user || user.id === parseInt(req.params.id)) {
             await UserModel.update(req.body, {
                 where: { id: req.params.id }
             });
@@ -111,4 +110,5 @@ export const updateUserValDni = async (req, res) => {
         res.json({ message: "error al conectar con la base de datos" });
     }
 }
-/**/ 
+
+//Actualizar

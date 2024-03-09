@@ -64,27 +64,6 @@ export const updateProducto = async (req, res) => {
     }
 }
 
-// Actualizar datos de un producto validado por nombre .... Genera error ya que no me permite actualiar porque me dice que el nombre del producto ya existe
-export const updateProductoValNom = async (req, res) => {
-    try {
-        const nombre = await ProductoModel.findOne({ 
-            where: {
-                nombre: req.body.nombre
-            }
-        })
-        if (!nombre) {
-            await ProductoModel.update(req.body, {
-                where: { id: req.params.id }
-            });
-            res.json({ message: "Registro actualizado exitosamente" });
-        } else {
-            res.json({ message: "El producto ya existe" });
-        }
-    } catch (error) {
-        res.json({ message: "error al conectar con la base de datos" });
-    }
-}
-
 //Activar producto por estado
 export const activateProducto = async (req, res) => {
     try {
