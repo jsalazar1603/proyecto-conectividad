@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/GestionarUsuario.module.css";
-import MenuLateral from "../components/MenuLateral";
 import { Package, Shop, User, UserBag, UserPlus } from "iconoir-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
@@ -33,11 +32,6 @@ const GestionarUsuario = () => {
   };
 
   //procedimiento para eliminar un usuario
-  const deleteUser = async (id) => {
-    axios.delete(`${URI}${id}`);
-    getUsers();
-  };
-
   const calcularConteos = () => {
     const hombres = users.filter((user) => user.sexo === "masculino").length;
     const mujeres = users.filter((user) => user.sexo === "femenino").length;

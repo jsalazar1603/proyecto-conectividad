@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/ModificarUsuario.module.css";
 import { Package, Search, Shop, User } from "iconoir-react";
 import { Link } from "react-router-dom";

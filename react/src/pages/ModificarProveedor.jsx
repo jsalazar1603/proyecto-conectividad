@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/ModificarProveedor.module.css";
 import { Package, Search, Shop, User } from "iconoir-react";
 import { Link } from "react-router-dom";
@@ -113,10 +113,12 @@ const ModificarProveedor = () => {
                 <span className={styles.optionName}>Gestionar Proveedor</span>
               </div>
             </Link>
-            <div className={styles.option}>
-              <Package size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Producto</span>
-            </div>
+            <Link to="/gestionarproducto">
+              <div className={styles.option}>
+                <Package size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Producto</span>
+              </div>
+            </Link>
           </section>
         </div>
       </div>
