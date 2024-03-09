@@ -23,9 +23,18 @@ export const getProducto = async (req, res) => {
         res.json({ message: error.message });
     }
 }
+//crear un registro de producto
+export const createProducto = async (req, res) => {
+    try {
+        await ProductoModel.create(req.body);
+        res.json({ message: "Registro creado exitosamente" });
+    } catch (error) {
+        res.json({ message: error.message });
+    }
+}
 
 // Crear un registro de producto validado por nombre
-export const createProducto= async (req, res)=>{
+export const createProductoValNom= async (req, res)=>{
     try{
         const nombre=await ProductoModel.findOne({
             where:{
