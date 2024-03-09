@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/RegistrarUsuario.module.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
@@ -61,7 +61,7 @@ const ModificarDatos = () => {
       contraseña: contraseña,
       idTipoUser: idTipoUser,
     });
-
+console.log("edad:",edad)
     console.log("respuesta:", respuesta);
 
     if (respuesta.data.ok) {
