@@ -73,24 +73,54 @@ export const activateUser = async (req, res) => {
 
 //crear un usuario validado por dni
 export const createUserValDni = async (req, res) => {
-    try {
-        const dni = await UserModel.findOne({
-            where: {
-                dni: req.body.dni
-            }
-        })
-        if (!dni) {
+    try{
+        const errores=[];
+        const existeDni= await UserModel.findOne({where:{dni:req.body.dni}});
+        if(existeDni){errores.push('DNI');}
+        const existeCorreo= await UserModel.findOne({where:{correo:req.body.correo}});
+        if(existeCorreo){errores.push('Correo');}
+        const existeTelefono= await UserModel.findOne({where:{telefono:req.body.telefono}});
+        if(existeTelefono){errores.push('Telefono');}
+        //Si hay errores, mostrar mensaje de error
+        if(errores.length>0){
+            res.json({message:`El ${errores.join(', ')} ya existe`,ok:false});
+        }else{
+        //Si no hay errores, crear el usuario
             await UserModel.create(req.body);
-            res.json({ message: "Registro creado exitosamente",ok:true });
-        } else {
-            res.json({ message: "El dni ya existe",ok:false});
+            res.json({message:"Registro creado exitosamente",ok:true});
+        }
+    }catch(error){
+        res.json({ message: "Error al conectar con la base de datos"});
+    }
+}
+
+//Actualizar un usuario 
+export const updateUserValDni = async (req, res) => {
+    try {
+        const errores=[];
+        const existeDni= await UserModel.findOne({where:{dni:req.body.dni}});
+        if(existeDni && existeDni.id !== parseInt(req.params.id)){errores.push('DNI');}
+        const existeCorreo= await UserModel.findOne({where:{correo:req.body.correo}});
+        if(existeCorreo && existeCorreo.id !== parseInt(req.params.id)){errores.push('Correo');}
+        const existeTelefono= await UserModel.findOne({where:{telefono:req.body.telefono}});
+        if(existeTelefono && existeTelefono.id !== parseInt(req.params.id)){errores.push('Telefono');}
+        //Si hay errores, mostrar mensaje de error
+        if(errores.length>0){
+            res.json({message:`El ${errores.join(', ')} ya existe`,ok:false});
+        }else{
+        //Si no hay errores, actualizar el usuario
+            await UserModel.update(req.body);
+            res.json({message:"Registro actualizado exitosamente",ok:true});
         }
     } catch (error) {
-        res.json({ message: "error al conectar con la base de datos" });
+         res.json({ message: "error al conectar con la base de datos" });
     }
-
 }
-//Actualizar un usuario, que no me permita repetir el dni y que pueda actualiar cualquier otro campo
+
+
+/*
+//Actualizar un usuario
+
 export const updateUserValDni = async (req, res) => {
     try {
         const user = await UserModel.findOne({
@@ -110,3 +140,4 @@ export const updateUserValDni = async (req, res) => {
         res.json({ message: "error al conectar con la base de datos" });
     }
 }
+*/

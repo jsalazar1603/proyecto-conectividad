@@ -27,8 +27,22 @@ export const getProveedor = async (req, res) => {
 // Crear un registro de proveedor
 export const createProveedor = async (req, res) => {
     try {
-        await ProveedorModel.create(req.body);
+        const errores=[];
+        const existeCorreo= await ProveedorModel.findOne({where:{correo:req.body.correo}});
+        if(existeCorreo){errores.push('Correo');}
+        const existeTelefono= await ProveedorModel.findOne({where:{telefono:req.body.telefono}});
+        if(existeTelefono){errores.push('Telefono');}
+        const existeWeb= await ProveedorModel.findOne({where:{sitioweb:req.body.sitioweb}});
+        if(existeWeb){errores.push('Sitio Web');}
+        //Si hay errores, mostrar mensaje de error
+        if(errores.length>0){
+            res.json({message:`El ${errores.join(', ')} ya existe`,ok:false});
+        }else{
+            //Si no hay errores, crear el registro
+            await ProveedorModel.create(req.body);
         res.json({ message: "Registro creado exitosamente" });
+        }
+
     } catch (error) {
         res.json({ message: error.message });
     }
@@ -37,10 +51,22 @@ export const createProveedor = async (req, res) => {
 // Actualizar datos de un proveedor
 export const updateProveedor = async (req, res) => {
     try {
-        await ProveedorModel.update(req.body, {
-            where: { id: req.params.id }
-        });
+        const errores=[];
+        const existeCorreo= await ProveedorModel.findOne({where:{correo:req.body.correo}});
+        if(existeCorreo && existeCorreo.id !== parseInt(req.params.id)){errores.push('Correo');}
+        const existeTelefono= await ProveedorModel.findOne({where:{telefono:req.body.telefono}});
+        if(existeTelefono && existeTelefono.id !== parseInt(req.params.id)){errores.push('Telefono');}
+        const existeWeb= await ProveedorModel.findOne({where:{sitioweb:req.body.sitioweb}});
+        if(existeWeb && existeWeb.id !== parseInt(req.params.id)){errores.push('Sitio Web');}
+        //Si hay errores, mostrar mensaje de error
+        if(errores.length>0){
+            res.json({message:`El ${errores.join(', ')} ya existe`,ok:false});
+        }else{
+            //Si no hay errores, actualizar Proveedor
+            await ProveedorModel.update(req.body);
         res.json({ message: "Registro actualizado exitosamente" });
+        }
+
     } catch (error) {
         res.json({ message: error.message });
     }
