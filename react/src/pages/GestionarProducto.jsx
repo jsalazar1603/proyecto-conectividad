@@ -73,6 +73,7 @@ const GestionarProducto = () => {
                   <tr>
                     <th className={styles.proveedorName}>Nombre</th>
                     <th className={styles.proveedorEmail}>Marca</th>
+                    <th className={styles.proveedorEmail}>Modelo</th>
                     <th className={styles.proveedorWeb}>Stock</th>
                     <th className={styles.proveedorTelephone}>Precio</th>
                   </tr>
@@ -87,6 +88,9 @@ const GestionarProducto = () => {
                         className={`${styles.marca} ${styles.centered}`}
                       >
                         {producto.marca == "" ? "Sin especificar" : producto.marca}
+                      </td>
+                      <td className={styles.proveedorTelephone}>
+                        {producto.modelo}
                       </td>
                       <td
                         className={`${styles.stock} ${styles.centered}`}

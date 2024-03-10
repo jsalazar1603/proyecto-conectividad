@@ -4,7 +4,7 @@ import { Package, Search, Shop, User } from "iconoir-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 
-const URI = "http://localhost:8000/productos/";
+const URI = "http://localhost:8000/producto/";
 
 const ModificarProducto = () => {
   const [productos, setProductos] = useState([]);
@@ -55,6 +55,7 @@ const ModificarProducto = () => {
             <span className={styles.lastname}>{producto.stock}</span>
             <span className={styles.lastname}>{producto.precio}</span>
            <span className={styles.lastname}>{producto.estado}</span>
+           <span className={styles.lastname}>{producto.idProveedor}</span>
             <Link to={`/modificardatosproducto/${producto.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
@@ -88,6 +89,11 @@ const ModificarProducto = () => {
               <span className={styles.state}>Activo</span>
             ) : (
               <span className={styles.state}>Inhabilitado</span>
+            )}
+            {producto.idProveedor == null ? (
+              <span className={styles.state}>Sin especificar</span>
+            ) : (
+              <span className={styles.state}>{producto.proveedor.nombre}</span>
             )}
             <Link to={`/modificardatosproducto/${producto.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
@@ -184,6 +190,7 @@ const ModificarProducto = () => {
                 <span className={styles.lastname}>Stock</span>
                 <span className={styles.role}>Precio</span>
                 <span className={styles.state}>Estado</span>
+                <span className={styles.state}>Proveedor</span>
               </div>
               {renderProductos()}
               {showNoResults && ( // Utiliza el estado showNoResults para controlar la visibilidad del mensaje

@@ -1,32 +1,42 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import styles from "../styles/RegistrarUsuario.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
 
-const URI = "http://localhost:8000/productos/";
+const URI = "http://localhost:8000/producto/";
+const URI2 = "http://localhost:8000/proveedor/";
 
 const RegistrarProducto = () => {
   const [nombre, setNombre] = useState("");
+  const [marca, setMarca] = useState("");
+  const [modelo, setModelo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [stock, setStock] = useState("");
   const [precio, setPrecio] = useState("");
   const [estado, setEstado] = useState("");
   const [idProveedor, setIdProveedor] = useState("");
+  const [listaProveedores, setListaProveedores] = useState([]);
 
   const tipoEstado = [
-    { value: "", label: "Seleccionar" },
-    { value: "1", label: "Solicitado" },
-    { value: "2", label: "Enviado"},
-    { value: "3", label: "Entregado"},
+    { value: "0", label: "Inhabilitado" },
+    { value: "1", label: "Habilitado" },
   ];
-  
+  useEffect(() => {
+    getProveedores();
+  }, []);
 
+  const getProveedores = async () => {
+    const res = await axios.get(URI2);
+    setListaProveedores(res.data);
+  };
   const store = async (e) => {
     e.preventDefault();
-
+  
     const respuesta = await axios.post(URI, {
       nombre: nombre,
+      marca: marca,
+      modelo: modelo,
       descripcion: descripcion,
       stock: stock,
       precio: precio,
@@ -40,10 +50,13 @@ const RegistrarProducto = () => {
       alert("Producto registrado");
       handleClear();
     }
+    console.log(idProveedor);
   };
 
   const handleClear = () => {
     setNombre("");
+    setMarca("");
+    setModelo("");
     setDescripcion("");
     setStock("");
     setPrecio("");
@@ -97,6 +110,24 @@ const RegistrarProducto = () => {
                     />
                   </div>
                   <div>
+                    <label htmlFor="">Marca</label>
+                    <input
+                      placeholder="Ingrese Marca"
+                      type="text"
+                      value={marca}
+                      onChange={(e) => setMarca(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="">Modelo</label>
+                    <input
+                      placeholder="Ingrese Modelo"
+                      type="text"
+                      value={modelo}
+                      onChange={(e) => setModelo(e.target.value)}
+                    />
+                  </div>
+                  <div>
                     <label htmlFor="">Descripcion</label>
                     <input
                       placeholder="Ingrese descripcion"
@@ -105,8 +136,10 @@ const RegistrarProducto = () => {
                       onChange={(e) => setDescripcion(e.target.value)}
                     />
                   </div>
+                </div>
+                <div className={styles.formMiddle}>
                   <div>
-                    <label htmlFor="">Stock(unidades)</label>
+                    <label htmlFor="">Stock (unidades)</label>
                     <input
                       placeholder="Ingrese Stock"
                       type="number"
@@ -124,7 +157,7 @@ const RegistrarProducto = () => {
                     />
                   </div>
                   <div>
-                  <label htmlFor="">Estado</label>
+                    <label htmlFor="">Estado</label>
                     <select
                       value={estado}
                       onChange={(e) => setEstado(e.target.value)}
@@ -136,17 +169,16 @@ const RegistrarProducto = () => {
                       ))}
                     </select>
                   </div>
-                </div>
-                <div className={styles.formMiddle}>
                   <div>
                     <label htmlFor="">Proveedor</label>
                     <select
                       value={idProveedor}
                       onChange={(e) => setIdProveedor(e.target.value)}
                     >
-                      {tipoEstado.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
+                      <option value="1">Sin especificar</option>
+                      {listaProveedores.map((proveedor) => (
+                        <option key={proveedor.value} value={proveedor.id}>
+                          {proveedor.nombre}
                         </option>
                       ))}
                     </select>
