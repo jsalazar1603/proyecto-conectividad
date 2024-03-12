@@ -76,29 +76,33 @@ const GestionarProducto = () => {
                     <th className={styles.proveedorEmail}>Modelo</th>
                     <th className={styles.proveedorWeb}>Stock</th>
                     <th className={styles.proveedorTelephone}>Precio</th>
+                    <th className={styles.proveedorTelephone}>Proveedor</th>
                   </tr>
                 </thead>
                 <tbody>
                   {productos.map((producto) => (
                     <tr key={producto.id}>
-                      <td className={styles.proveedorName}>
+                      <td className={styles.productoNombre}>
                         {producto.nombre}
                       </td>
-                      <td
-                        className={`${styles.marca} ${styles.centered}`}
-                      >
-                        {producto.marca == "" ? "Sin especificar" : producto.marca}
+                      <td className={`${styles.marca} ${styles.centered}`}>
+                        {producto.marca == ""
+                          ? "Sin especificar"
+                          : producto.marca}
                       </td>
-                      <td className={styles.proveedorTelephone}>
+                      <td className={styles.productoModelo}>
                         {producto.modelo}
                       </td>
-                      <td
-                        className={`${styles.stock} ${styles.centered}`}
-                      >
+                      <td className={`${styles.stock} ${styles.centered}`}>
                         {producto.stock}
                       </td>
-                      <td className={styles.proveedorTelephone}>
+                      <td className={styles.productoPrecio}>
                         {producto.precio}
+                      </td>
+                      <td className={styles.productoProveedor}>
+                        {producto.proveedor
+                          ? producto.proveedor.nombre
+                          : "Sin proveedor"}
                       </td>
                     </tr>
                   ))}

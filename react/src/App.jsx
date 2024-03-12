@@ -12,6 +12,7 @@ import ModificarDatosProveedor from "./pages/ModificarDatosProveedor";
 import GestionarProducto from "./pages/GestionarProducto";
 import RegistrarProducto from "./pages/RegistrarProducto";
 import ModificarProducto from "./pages/ModificarProducto";
+import ModificarDatosProducto from './pages/ModificarDatosProducto'
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
         <Route path="/gestionarproducto" element={<GestionarProducto />}></Route>
         <Route path="/registrarproducto" element={<RegistrarProducto />}></Route>
         <Route path="/modificarproducto" element={<ModificarProducto/>}></Route>
+        <Route path="/modificardatosproducto/:id" element={<ModificarDatosProducto/>}></Route>
       </Routes>
     </BrowserRouter>
   );

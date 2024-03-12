@@ -4,24 +4,39 @@ import { Link, useParams } from "react-router-dom";
 import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
 
-const URI = "http://localhost:8000/productos/";
+const URI = "http://localhost:8000/producto/";
+const URI2 = "http://localhost:8000/proveedor/";
 
 const ModificarDatosProducto = () => {
   const [nombre, setNombre] = useState("");
+  const [marca, setMarca] = useState("");
+  const [modelo, setModelo] = useState("");
   const [descripcion, setDescripcion] = useState("");
   const [stock, setStock] = useState("");
   const [precio, setPrecio] = useState("");
   const [estado, setEstado] = useState("");
   const [idProveedor, setIdProveedor] = useState("");
+  const [listaProveedores, setListaProveedores] = useState([]);
 
   const { id } = useParams();
 
+  useEffect(() => {
+    getProveedores();
+    getProductoById();
+  }, []);
+
+  const getProveedores = async () => {
+    const res = await axios.get(URI2);
+    setListaProveedores(res.data);
+  };
   //procedimiento para actualizar
   const update = async (e) => {
     e.preventDefault();
 
     const respuesta = await axios.put(URI + id, {
       nombre: nombre,
+      marca: marca,
+      modelo: modelo,
       descripcion: descripcion,
       stock: stock,
       precio: precio,
@@ -30,39 +45,30 @@ const ModificarDatosProducto = () => {
     });
 
     console.log("respuesta:", respuesta);
-
-    if (respuesta.data.ok) {
-      alert("Datos actualizados correctamente");
-
-      setNombre("");
-      setDescripcion("");
-      setStock("");
-      setPrecio("");
-      setEstado("");
-      setIdProveedor("");
-
-    } 
-    // else {
-    //   alert("El dni ya se encuentra registrado en el sistema");
-    // }
+    alert("Datos actualizados correctamente");
+    handleClear();
   };
-
-  useEffect(() => {
-    getProductoById();
-  }, []);
 
   const getProductoById = async () => {
     const res = await axios.get(URI + id);
     setNombre(res.data.nombre);
+    setMarca(res.data.marca);
+    setModelo(res.data.modelo);
     setDescripcion(res.data.descripcion);
     setStock(res.data.stock);
     setPrecio(res.data.precio);
     setEstado(res.data.estado);
     setIdProveedor(res.data.idProveedor);
+    console.log("res:", res);
   };
-
+  const estadoProducto = [
+    { value: "0", label: "Inhabilitado" },
+    { value: "1", label: "Habilitado" },
+  ];
   const handleClear = () => {
     setNombre("");
+    setMarca("");
+    setModelo("");
     setDescripcion("");
     setStock("");
     setPrecio("");
@@ -113,6 +119,24 @@ const ModificarDatosProducto = () => {
                       onChange={(e) => setNombre(e.target.value)}
                     />
                   </div>
+                  <div className={styles.campo}>
+                    <label htmlFor="">Marca</label>
+                    <input
+                      placeholder="Ingrese marca"
+                      type="text"
+                      value={marca}
+                      onChange={(e) => setMarca(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="">Modelo</label>
+                    <input
+                      placeholder="Ingrese modelo"
+                      type="text"
+                      value={modelo}
+                      onChange={(e) => setModelo(e.target.value)}
+                    />
+                  </div>
                   <div>
                     <label htmlFor="">Descripcion</label>
                     <input
@@ -122,14 +146,38 @@ const ModificarDatosProducto = () => {
                       onChange={(e) => setDescripcion(e.target.value)}
                     />
                   </div>
-                  <div>
+                </div>
+                <div className={styles.formMiddle}>
+                  <div className={styles.campo}>
                     <label htmlFor="">Stock</label>
                     <input
-                      placeholder="Ingrese stock"
+                      placeholder="Ingrese Stock"
                       type="number"
                       value={stock}
+                      onChange={(e) => setStock(e.target.value)}
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="">Precio</label>
+                    <input
+                      placeholder="Ingrese precio"
+                      type="number"
+                      value={precio}
                       onChange={(e) => setPrecio(e.target.value)}
                     />
+                  </div>
+                  <div className={styles.selectRol}>
+                    <label htmlFor="">Estado</label>
+                    <select
+                      value={estado}
+                      onChange={(e) => setEstado(e.target.value)}
+                    >
+                      {estadoProducto.map((option) => (
+                        <option key={option.value} value={option.value}>
+                          {option.label}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <label htmlFor="">Precio</label>
@@ -143,14 +191,15 @@ const ModificarDatosProducto = () => {
                   <div>
                     <label htmlFor="">Proveedor</label>
                     <select
-                    //   value={idTipoUser}
-                    //   onChange={(e) => setIdTipoUser(e.target.value)}
+                      value={idProveedor}
+                      onChange={(e) => setIdProveedor(e.target.value)}
                     >
-                      {/* {tipoUsuarioOptions.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
+                      <option value="">Sin especificar</option>
+                      {listaProveedores.map((proveedor) => (
+                        <option key={proveedor.value} value={proveedor.id}>
+                          {proveedor.nombre}
                         </option>
-                      ))} */}
+                      ))}
                     </select>
                   </div>
                 </div>

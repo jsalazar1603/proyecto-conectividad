@@ -32,7 +32,7 @@ const RegistrarProducto = () => {
   };
   const store = async (e) => {
     e.preventDefault();
-  
+
     const respuesta = await axios.post(URI, {
       nombre: nombre,
       marca: marca,
@@ -46,10 +46,9 @@ const RegistrarProducto = () => {
 
     console.log("respuesta: ", respuesta);
 
-    if (respuesta.data.ok) {
-      alert("Producto registrado");
-      handleClear();
-    }
+    alert("Producto registrado");
+    handleClear();
+
     console.log(idProveedor);
   };
 
