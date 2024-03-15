@@ -52,16 +52,30 @@ const ModificarProducto = () => {
         <div key={producto.id}>
           <div className={styles.userData1}>
             <span className={styles.name}>{producto.nombre}</span>
-            <span className={styles.lastname}>{producto.stock}</span>
+            {producto.stock <= 30 ? (
+              <span className={styles.stockBajo}>{producto.stock}(Bajo)</span>
+            ) : (
+              <span className={styles.stockOptimo}>
+                {producto.stock}(Óptimo)
+              </span>
+            )}
             <span className={styles.lastname}>{producto.precio}</span>
-           <span className={styles.lastname}>{producto.estado}</span>
-           <span className={styles.lastname}>{producto.idProveedor}</span>
+            {producto.estado ? (
+              <span className={styles.state}>Activo</span>
+            ) : (
+              <span className={styles.state}>Inhabilitado</span>
+            )}
+            {producto.idProveedor == null ? (
+              <span className={styles.state}>Sin especificar</span>
+            ) : (
+              <span className={styles.state}>{producto.proveedor.nombre}</span>
+            )}
             <Link to={`/modificardatosproducto/${producto.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
             {producto.estado ? (
               <button
-                 onClick={() => deleteProducto(producto.id)}
+                onClick={() => deleteProducto(producto.id)}
                 className={styles.btnDardebaja}
               >
                 Inhabilitar
@@ -83,7 +97,13 @@ const ModificarProducto = () => {
         <div key={producto.id}>
           <div className={styles.userData1}>
             <span className={styles.name}>{producto.nombre}</span>
-            <span className={styles.lastname}>{producto.stock}</span>
+            {producto.stock <= 30 ? (
+              <span className={styles.stockBajo}>{producto.stock}(Bajo)</span>
+            ) : (
+              <span className={styles.stockOptimo}>
+                {producto.stock}(Óptimo)
+              </span>
+            )}
             <span className={styles.lastname}>{producto.precio}</span>
             {producto.estado ? (
               <span className={styles.state}>Activo</span>
@@ -122,17 +142,22 @@ const ModificarProducto = () => {
 
   //procedimiento para inhabilitar un producto
   const deleteProducto = async (id) => {
-    await axios.delete(`${URI}${id}`);
-    getProductos();
+    await axios.put(`${URI}deactivate/${id}`);
+    // Actualizar el estado de los productos después de eliminar/inhabilitar un producto
+    await getProductos();
+    // Actualizar la lista de productos antes de actualizar los resultados de búsqueda
+    setSearchResults(searchProductos());
     alert("Producto Inhabilitado");
   };
 
   const activateProducto = async (id) => {
     await axios.put(`${URI}activate/${id}`);
-    getProductos();
+    // Actualizar el estado de los productos después de activar un producto
+    await getProductos();
+    // Actualizar la lista de productos antes de actualizar los resultados de búsqueda
+    setSearchResults(searchProductos());
     alert("Producto Habilitado");
   };
-
   return (
     <section className={styles.mainContainer}>
       <div className={styles.menuLateral}>

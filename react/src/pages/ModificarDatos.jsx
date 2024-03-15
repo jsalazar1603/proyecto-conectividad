@@ -61,7 +61,7 @@ const ModificarDatos = () => {
       contraseña: contraseña,
       idTipoUser: idTipoUser,
     });
-console.log("edad:",edad)
+    console.log("edad:", edad);
     console.log("respuesta:", respuesta);
 
     if (respuesta.data.ok) {

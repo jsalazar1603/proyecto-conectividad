@@ -1,4 +1,4 @@
-import  { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/GestionarProveedor.module.css";
 import { Package, Shop, User, UserBag, UserPlus } from "iconoir-react";
 import { Link } from "react-router-dom";
@@ -69,27 +69,35 @@ const GestionarProveedor = () => {
           <div className={styles.proveedorInfo}>
             <div className={styles.proveedorList}>
               <h2 className={styles.title}>Proveedores registrados</h2>
-              <div className={styles.proveedoresTable}>
-                {proveedores.map((proveedor) => (
-                  <div key={proveedor.id}>
-                    <div className={styles.proveedorData1}>
-                      <span className={styles.proveedorName}>
+              <table className={styles.proveedoresTable}>
+                <thead>
+                  <tr>
+                    <th className={styles.proveedorName}>Nombre</th>
+                    <th className={styles.proveedorEmail}>Correo</th>
+                    <th className={styles.proveedorWeb}>Sitio Web</th>
+                    <th className={styles.proveedorTelephone}>Teléfono</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {/* Aquí va el mapeo de los proveedores */}
+                  {proveedores.map((proveedor) => (
+                    <tr key={proveedor.id}>
+                      <td className={styles.proveedorName}>
                         {proveedor.nombre}
-                      </span>
-                      <span className={styles.proveedorEmail}>
+                      </td>
+                      <td className={styles.proveedorEmail}>
                         {proveedor.correo}
-                      </span>
-                      <span className={styles.proveedorWeb}>
+                      </td>
+                      <td className={styles.proveedorWeb}>
                         {proveedor.sitioweb}
-                      </span>
-                      <span className={styles.proveedorTelephone}>
+                      </td>
+                      <td className={styles.proveedorTelephone}>
                         {proveedor.telefono}
-                      </span>
-                    </div>
-                    <hr />
-                  </div>
-                ))}
-              </div>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
           </div>
         </div>

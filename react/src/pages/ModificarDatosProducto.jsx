@@ -93,10 +93,12 @@ const ModificarDatosProducto = () => {
                 <span className={styles.optionName}>Gestionar Proveedor</span>
               </div>
             </Link>
-            <div className={styles.selectedOption}>
-              <Package size="24" color="#ffffff" />
-              <span className={styles.optionName}>Gestionar Producto</span>
-            </div>
+            <Link to="/gestionarproducto">
+              <div className={styles.selectedOption}>
+                <Package size="24" color="#ffffff" />
+                <span className={styles.optionName}>Gestionar Producto</span>
+              </div>
+            </Link>
           </section>
         </div>
       </div>

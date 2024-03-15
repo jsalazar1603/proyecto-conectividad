@@ -220,6 +220,11 @@
 .btnBackbutton:hover {
   background-color: #416b7e;
 }
-.state{
-  
+.stockBajo{
+  color: rgb(175, 46, 46);
+  font-weight: bold
+}
+.stockOptimo{
+  color: rgb(41, 173, 41);
+  font-weight: bold;
 }

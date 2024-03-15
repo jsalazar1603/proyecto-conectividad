@@ -11,7 +11,7 @@ const ProductoModel = db.define(
     stock: { type: DataTypes.INTEGER },
     precio: { type: DataTypes.FLOAT },
     estado: { type: DataTypes.BOOLEAN },
-    idProveedor: { type: DataTypes.INTEGER}, //Aqui deberia ser por integer pero no se como lo harias por ello le pongo string
+    idProveedor: { type: DataTypes.INTEGER},
   },
   {
     timestamps: false, //Deshabilitar marcas de tiempo

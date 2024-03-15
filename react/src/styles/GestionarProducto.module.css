@@ -79,7 +79,7 @@
 .bottomSection {
   width: 100%;
   box-sizing: border-box;
-  padding: 36px 32px 36px 32px;
+  padding: 36px 32px 0px 32px;
   height: 483px;
   background-color: rgba(34, 51, 59, 0.1);
 }
