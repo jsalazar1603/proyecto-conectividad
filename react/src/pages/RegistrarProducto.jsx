@@ -15,13 +15,13 @@ const RegistrarProducto = () => {
   const [stock, setStock] = useState("");
   const [precio, setPrecio] = useState("");
   const [estado, setEstado] = useState("");
-  const [idProveedor, setIdProveedor] = useState("");
+  const [idProveedor, setIdProveedor] = useState("1");
   const [listaProveedores, setListaProveedores] = useState([]);
 
-  const tipoEstado = [
-    { value: "0", label: "Inhabilitado" },
-    { value: "1", label: "Habilitado" },
-  ];
+  // const tipoEstado = [
+  //   { value: "0", label: "Inhabilitado" },
+  //   { value: "1", label: "Habilitado" },
+  // ];
   useEffect(() => {
     getProveedores();
   }, []);
@@ -40,7 +40,7 @@ const RegistrarProducto = () => {
       descripcion: descripcion,
       stock: stock,
       precio: precio,
-      estado: estado,
+      estado: "1",
       idProveedor: idProveedor,
     });
 
@@ -126,13 +126,27 @@ const RegistrarProducto = () => {
                       onChange={(e) => setModelo(e.target.value)}
                     />
                   </div>
-                  <div>
-                    <label htmlFor="">Descripcion</label>
-                    <input
+                  <div
+                    style={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "center",
+                    }}
+                  >
+                    <label style={{ marginLeft: "-170px" }} htmlFor="">
+                      Descripcion
+                    </label>
+                    <textarea
                       placeholder="Ingrese descripcion"
                       type="text"
                       value={descripcion}
                       onChange={(e) => setDescripcion(e.target.value)}
+                      style={{
+                        width: "270px",
+                        height: "150px",
+                        resize: "none",
+                        borderRadius: "8px",
+                      }}
                     />
                   </div>
                 </div>
@@ -154,19 +168,6 @@ const RegistrarProducto = () => {
                       value={precio}
                       onChange={(e) => setPrecio(e.target.value)}
                     />
-                  </div>
-                  <div>
-                    <label htmlFor="">Estado</label>
-                    <select
-                      value={estado}
-                      onChange={(e) => setEstado(e.target.value)}
-                    >
-                      {tipoEstado.map((option) => (
-                        <option key={option.value} value={option.value}>
-                          {option.label}
-                        </option>
-                      ))}
-                    </select>
                   </div>
                   <div>
                     <label htmlFor="">Proveedor</label>
