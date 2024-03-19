@@ -6,55 +6,8 @@
     width: 100%;
     background-color: rgb(255, 255, 255);
   }
-  .menuLateral {
-    width: 276px;
-    height: 100%;
-  }
-  .content{
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    width: 276px;
-    background-color: #0A0908;
-    border-radius: 0px 10px 10px 0px;
-    box-sizing: border-box;
-    gap: 86px;
-  }
   .contentNumber{
     display: flex;
-  }
-  .titlebrand{
-    color: #EAE0D5;
-    font-size: 24px;
-    padding: 30px 30px 0px 30px;
-  }
-  .optionsMenu .option {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-    height: 40px;
-    gap: 25px;
-    cursor: pointer;
-    transition: all 0.2s ease-in;
-  }
-  .optionsMenu .option:hover{
-    background-color: #5e503f;
-  }
-  .optionName{
-    color:#EAE0D5;
-    font-size: 14px;
-    font-weight: 700;
-  }
-  .selectedOption {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #22333b;
-    width: 100%;
-    height: 40px;
-    gap: 25px;
-    cursor: pointer;
   }
   .rightSection {
     display: flex;

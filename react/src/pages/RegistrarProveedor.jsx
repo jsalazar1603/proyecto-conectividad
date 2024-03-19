@@ -3,6 +3,7 @@ import styles from "../styles/RegistrarProveedor.module.css";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
+import MenuLateral from "../components/MenuLateral";
 
 const URI = "http://localhost:8000/proveedor/";
 
@@ -37,31 +38,7 @@ const RegistrarProveedor = () => {
 
   return (
     <section className={styles.mainContainer}>
-      <div className={styles.menuLateral}>
-        <div className={styles.content}>
-          <h1 className={styles.titlebrand}>Negocios e inversiones JR</h1>
-          <section className={styles.optionsMenu}>
-            <Link to="/gestionarUsuario">
-              <div className={styles.option}>
-                <User size="24" color="#ffffff" />
-                <span className={styles.optionName}>Gestionar Usuario</span>
-              </div>
-            </Link>
-            <Link to="/gestionarproveedor">
-              <div className={styles.selectedOption}>
-                <Shop size="24" color="#ffffff" />
-                <span className={styles.optionName}>Gestionar Proveedor</span>
-              </div>
-            </Link>
-            <Link to="/gestionarproducto">
-              <div className={styles.option}>
-                <Package size="24" color="#ffffff" />
-                <span className={styles.optionName}>Gestionar Producto</span>
-              </div>
-            </Link>
-          </section>
-        </div>
-      </div>
+      <MenuLateral opcionActiva="proveedor" />
       <div className={styles.rightSection}>
         <div className={styles.topSection}>
           <h2 className={styles.title}>REGISTRAR NUEVO PROVEEDOR</h2>

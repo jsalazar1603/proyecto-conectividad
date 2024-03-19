@@ -3,6 +3,7 @@ import styles from "../styles/RegistrarUsuario.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
+import MenuLateral from "../components/MenuLateral";
 
 const URI = "http://localhost:8000/users/";
 
@@ -87,31 +88,7 @@ const RegistrarUsuario = () => {
   };
   return (
     <section className={styles.mainContainer}>
-      <div className={styles.menuLateral}>
-        <div className={styles.content}>
-          <h1 className={styles.titlebrand}>Negocios e inversiones JR</h1>
-          <section className={styles.optionsMenu}>
-            <Link to="/gestionarUsuario">
-              <div className={styles.selectedOption}>
-                <User size="24" color="#ffffff" />
-                <span className={styles.optionName}>Gestionar Usuario</span>
-              </div>
-            </Link>
-            <Link to="/gestionarproveedor">
-              <div className={styles.option}>
-                <Shop size="24" color="#ffffff" />
-                <span className={styles.optionName}>Gestionar Proveedor</span>
-              </div>
-            </Link>
-            <Link to="/gestionarproducto">
-              <div className={styles.option}>
-                <Package size="24" color="#ffffff" />
-                <span className={styles.optionName}>Gestionar Producto</span>
-              </div>
-            </Link>
-          </section>
-        </div>
-      </div>
+      <MenuLateral opcionActiva="usuario" />
       <div className={styles.rightSection}>
         <div className={styles.topSection}>
           <h2 className={styles.title}>REGISTRAR NUEVO USUARIO</h2>
