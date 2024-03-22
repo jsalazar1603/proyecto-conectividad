@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import styles from "../styles/ModificarUsuario.module.css";
-import { Package, Search, Shop, User } from "iconoir-react";
+import { Search } from "iconoir-react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MenuLateral from "../components/MenuLateral";
@@ -11,7 +11,6 @@ const tipoUsuarioMap = {
   1: "Administrador",
   2: "Vendedor",
 };
-
 
 const ModificarUsuario = () => {
   const [users, setUser] = useState([]);
@@ -56,77 +55,67 @@ const ModificarUsuario = () => {
   const renderUsers = () => {
     if (searchQuery !== "" && !showAllUsers) {
       return searchResults.map((user) => (
-        <div key={user.id}>
-          <div className={styles.userData1}>
-            <span className={styles.name}>{user.nombre}</span>
-            <span className={styles.lastname}>{user.apellidos}</span>
-            <span className={styles.idTipoUser}>
-              {tipoUsuarioMap[user.idTipoUser]}
-            </span>
-            {user.estado ? (
-              <span className={styles.state}>Activo</span>
-            ) : (
-              <span className={styles.state}>Inhabilitado</span>
-            )}
+        <tr key={user.id}>
+          <td>{user.nombre}</td>
+          <td>{user.apellidos}</td>
+          <td>{tipoUsuarioMap[user.idTipoUser]}</td>
+          <td>{user.estado ? "Activo" : "Inhabilitado"}</td>
+          <td>
             <Link to={`/modificardatos/${user.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
-            {
-              user.estado ? (
-                <button
-              onClick={() => deleteUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Dar de baja
-            </button>
-              ) : <button
-              onClick={() => activateUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Activar cuenta
-            </button>
-            }
-            {/* Agregar más campos si es necesario */}
-          </div>
-          <hr />
-        </div>
+          </td>
+          <td>
+            {user.estado ? (
+              <button
+                onClick={() => deleteUser(user.id)}
+                className={styles.btnDardebaja}
+              >
+                Dar de baja
+              </button>
+            ) : (
+              <button
+                onClick={() => activateUser(user.id)}
+                className={styles.btnDardebaja}
+              >
+                Activar cuenta
+              </button>
+            )}
+          </td>
+          {/* Agregar más celdas si es necesario */}
+        </tr>
       ));
     } else {
       return users.map((user) => (
-        <div key={user.id}>
-          <div className={styles.userData1}>
-            <span className={styles.name}>{user.nombre}</span>
-            <span className={styles.lastname}>{user.apellidos}</span>
-            <span className={styles.idTipoUser}>
-              {tipoUsuarioMap[user.idTipoUser]}
-            </span>
-            {user.estado ? (
-              <span className={styles.state}>Activo</span>
-            ) : (
-              <span className={styles.state}>Inhabilitado</span>
-            )}
+        <tr key={user.id}>
+          <td>{user.nombre}</td>
+          <td>{user.apellidos}</td>
+          <td>{tipoUsuarioMap[user.idTipoUser]}</td>
+          <td>{user.estado ? "Activo" : "Inhabilitado"}</td>
+          <td>
             <Link to={`/modificardatos/${user.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
-            {
-              user.estado ? (
-                <button
-              onClick={() => deleteUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Dar de baja
-            </button>
-              ) : <button
-              onClick={() => activateUser(user.id)}
-              className={styles.btnDardebaja}
-            >
-              Activar cuenta
-            </button>
-            }
-            {/* Agregar más campos si es necesario */}
-          </div>
-          <hr />
-        </div>
+          </td>
+          <td>
+            {user.estado ? (
+              <button
+                onClick={() => deleteUser(user.id)}
+                className={styles.btnDardebaja}
+              >
+                Dar de baja
+              </button>
+            ) : (
+              <button
+                onClick={() => activateUser(user.id)}
+                className={styles.btnDardebaja}
+              >
+                Activar cuenta
+              </button>
+            )}
+          </td>
+          {/* Agregar más celdas si es necesario */}
+        </tr>
       ));
     }
   };
@@ -171,19 +160,27 @@ const ModificarUsuario = () => {
                 Listar
               </button>
             </div>
-            <div className={styles.table}>
-              <div className={styles.columns}>
-                <span className={styles.name}>Nombre</span>
-                <span className={styles.lastname}>Apellidos</span>
-                <span className={styles.role}>Rol</span>
-                <span className={styles.state}>Estado</span>
-              </div>
-              {renderUsers()}
-              {showNoResults && ( // Utiliza el estado showNoResults para controlar la visibilidad del mensaje
-                <div className={styles.noResults}>
-                  No se encontraron coincidencias
-                </div>
-              )}
+            <div className={styles.listContainer}>
+              <table className={styles.table}>
+                <thead>
+                  <tr>
+                    <th>Nombre</th>
+                    <th>Apellidos</th>
+                    <th>Rol</th>
+                    <th>Estado</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {renderUsers()}
+                  {showNoResults && (
+                    <tr>
+                      <td colSpan="4" className={styles.noResults}>
+                        No se encontraron coincidencias
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
           <Link to="/gestionarusuario">

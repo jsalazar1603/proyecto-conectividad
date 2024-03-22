@@ -228,3 +228,7 @@
   color: rgb(41, 173, 41);
   font-weight: bold;
 }
+.listContainer{
+  max-height: 300px;
+  overflow: auto;
+}

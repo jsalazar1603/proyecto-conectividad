@@ -1,214 +1,252 @@
 .mainContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
-    width: 100%;
-    background-color: rgb(255, 255, 255);
-  }
-  .contentNumber{
-    display: flex;
-  }
-  .rightSection {
-    display: flex;
-    flex-direction: column;
-    gap: 30px;
-    width: 1090px;
-    height: 100%;
-  }
-  .topSection {
-    padding: 30px 30px 0px 30px;
-  }
-  .title {
-    color: #22333b;
-  }
-  .options {
-    display: flex;
-    justify-content: center;
-    gap: 117px;
-    width: 100%;
-    height: 170px;
-  }
-  .option1 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 262px;
-    gap: 31px;
-    box-sizing: border-box;
-    padding: 41px 36px 41px 36px;
-    background-color: #22333b;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: 0.2s all ease-out;
-  }
-  .option1:hover{
-    background-color: #3b5b69;
-  }
-  .option1 .optionText {
-    color: #ffffff;
-    width: 109px;
-    font-weight: 700;
-text-decoration: none;
-  }
-  .option2 {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 262px;
-    gap: 31px;
-    box-sizing: border-box;
-    padding: 41px 36px 41px 36px;
-    background-color: #5e503f;
-    border-radius: 20px;
-    cursor: pointer;
-    transition: 0.2s all ease-out;
-  }
-  .option2:hover{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 100%;
+  background-color: rgb(255, 255, 255);
+}
+.contentNumber {
+  display: flex;
+}
+.rightSection {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  width: 1090px;
+  height: 100%;
+}
+.topSection {
+  padding: 30px 30px 0px 30px;
+}
+.title {
+  color: #22333b;
+}
+.options {
+  display: flex;
+  justify-content: center;
+  gap: 117px;
+  width: 100%;
+  height: 170px;
+}
+.option1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 262px;
+  gap: 31px;
+  box-sizing: border-box;
+  padding: 41px 36px 41px 36px;
+  background-color: #22333b;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s all ease-out;
+}
+.option1:hover {
+  background-color: #3b5b69;
+}
+.option1 .optionText {
+  color: #ffffff;
+  width: 109px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.option2 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 262px;
+  gap: 31px;
+  box-sizing: border-box;
+  padding: 41px 36px 41px 36px;
+  background-color: #5e503f;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: 0.2s all ease-out;
+}
+.option2:hover {
   background-color: #866e51;
-  }
-  .option2 .optionText {
-    color: #ffffff;
-    width: 109px;
-    font-weight: 700;
-  }
-  .option1 .optionText:visited{
-    text-decoration: none;
-  }
-  .bottomSection {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 36px 32px 36px 32px;
-    height: 483px;
-    background-color: rgba(34, 51, 59, 0.1);
-  }
-  .usersInfo {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-  }
-  .usersList {
-    display: flex;
-    flex-direction: column;
-    width: 635px;
-    height: auto;
-    background-color: #ffffff;
-    border-radius: 10px;
-    padding: 10px;
-    box-sizing: border-box;
-  }
-  .usersList .title {
-    width: 242px;
-    height: 33px;
-    font-size: 16px;
-    padding: 8px;
-  }
-  .usersNumber {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    width: 273px;
-    height: 85px;
-    background-color: #ffffff;
-    border-radius: 10px;
-  }
-  .usersTable {
-    display: flex;
-    height: 134px;
-    flex-direction: column;
-    gap: 10px;
-    box-sizing: border-box;
-  }
-  .userData1 {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 615px;
-    height: 30px;
-    font-size: 13px;
-    box-sizing: border-box;
-    padding: 10px 10px;
-  }
-  .userName {
-    width: 210px;
-  }
-  .userData1 .roleColor {
-    width: 18px;
-    height: 14px;
-    background-color: #22333b;
-  }
-  .userData2 .roleColor,
-  .userData3 .roleColor {
-    width: 18px;
-    height: 14px;
-    background-color: #c6ac8f;
-  }
-  .roleName {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    width: 125px;
-  }
-  .telephone {
-    width: 65px;
-  }
-  .age {
-    width: 70px;
-  }
-  .stadistic {
-    display: flex;
-    align-items: center;
-    width: 273px;
-    height: 192px;
-  }
-  .usersNumber {
-    display: flex;
-    width: 273px;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    padding: 10px;
-  }
-  .usersNumber .title {
-    box-sizing: border-box;
-    padding: 8px;
-    font-size: 16px;
-    height: 32px;
-  }
-  .usersNumber .content {
-    display: flex;
-    height: 32px;
-    box-sizing: border-box;
-    padding: 8px 3px;
-  }
-  .male{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    padding: 0px 7px;
-    width: 118px;
-    height: 18px;
-  }   
-  .male .color{
-    width: 11px;
-    height: 11px;
-    background-color: #22333b;
-  }  
-  .female{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    padding: 0px 7px;
-    width: 118px;
-    height: 18px;
-  }     
-  .female .color{
-    width: 11px;
-    height: 11px;
-    background-color: #c6ac8f;
-  }
-  
+}
+.option2 .optionText {
+  color: #ffffff;
+  width: 109px;
+  font-weight: 700;
+}
+.option1 .optionText:visited {
+  text-decoration: none;
+}
+.bottomSection {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 36px 32px 0px 32px;
+  height: 483px;
+  background-color: rgba(34, 51, 59, 0.1);
+}
+.usersInfo {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+}
+.usersList {
+  overflow: auto;
+  display: flex;
+  flex-direction: column;
+  width: 635px;
+  max-height: 300px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.usersList .title {
+  width: 242px;
+  height: 33px;
+  font-size: 16px;
+  padding: 8px;
+}
+.usersNumber {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  width: 273px;
+  height: 85px;
+  background-color: #ffffff;
+  border-radius: 10px;
+}
+.usersTable {
+  display: flex;
+  height: 134px;
+  flex-direction: column;
+  gap: 10px;
+  box-sizing: border-box;
+}
+.userData1 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 615px;
+  height: 30px;
+  font-size: 13px;
+  box-sizing: border-box;
+  padding: 10px 10px;
+}
+.userName {
+  width: 210px;
+}
+.userData1 .roleColor {
+  width: 18px;
+  height: 14px;
+  background-color: #22333b;
+}
+.userData2 .roleColor,
+.userData3 .roleColor {
+  width: 18px;
+  height: 14px;
+  background-color: #c6ac8f;
+}
+.roleName {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 125px;
+}
+.telephone {
+  width: 65px;
+}
+.age {
+  width: 70px;
+}
+.stadistic {
+  display: flex;
+  align-items: center;
+  width: 273px;
+  height: 192px;
+}
+.usersNumber {
+  display: flex;
+  width: 273px;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 10px;
+}
+.usersNumber .title {
+  box-sizing: border-box;
+  padding: 8px;
+  font-size: 16px;
+  height: 32px;
+}
+.usersNumber .content {
+  display: flex;
+  height: 32px;
+  box-sizing: border-box;
+  padding: 8px 3px;
+}
+.male {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0px 7px;
+  width: 118px;
+  height: 18px;
+}
+.male .color {
+  width: 11px;
+  height: 11px;
+  background-color: #22333b;
+}
+.female {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  padding: 0px 7px;
+  width: 118px;
+  height: 18px;
+}
+.female .color {
+  width: 11px;
+  height: 11px;
+  background-color: #c6ac8f;
+}
+.productosTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+.productosTable {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+.productosTable th,
+.productosTable td {
+  font-size: 14px;
+  padding: 8px;
+  border-bottom: 1px solid #22333b; /* Línea entre cada fila */
+  border-right: 1px solid #22333b; /* Línea vertical entre las columnas */
+}
+
+/* Establecer borde derecho en el último elemento de la fila */
+.productosTable th:last-child,
+.productosTable td:last-child {
+  border-right: none;
+}
+
+.productosTable th {
+  text-align: center; /* Centrado de los títulos de las columnas */
+}
+
+/* Aplicamos estilos específicos para las celdas de la columna Precio */
+.proveedorTelephone {
+  text-align: right; /* Alineación a la derecha para el contenido de las celdas */
+}
+
+/* Alineamos al centro el contenido de las celdas de las columnas Marca y Stock */
+.proveedorEmail,
+.proveedorWeb,
+.productoModelo {
+  text-align: center;
+}

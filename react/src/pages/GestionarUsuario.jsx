@@ -42,7 +42,7 @@ const GestionarUsuario = () => {
 
   return (
     <section className={styles.mainContainer}>
-      <MenuLateral opcionActiva='usuario' />
+      <MenuLateral opcionActiva="usuario" />
       <div className={styles.rightSection}>
         <div className={styles.topSection}>
           <h2 className={styles.title}>GESTIONAR USUARIO</h2>
@@ -65,25 +65,35 @@ const GestionarUsuario = () => {
           <div className={styles.usersInfo}>
             <div className={styles.usersList}>
               <h2 className={styles.title}>Usuarios registrados</h2>
-              <div className={styles.usersTable}>
-                {users.map((user) => (
-                  <div key={user.id}>
-                    <div className={styles.userData1}>
-                      <span className={styles.userName}>
-                        {user.nombre} {user.apellidos}
-                      </span>
-                      <div className={styles.roleName}>
-                        <span className={styles.text}>
-                          {tipoUsuarioMap[user.idTipoUser]}
-                        </span>
-                      </div>
-                      <span className={styles.telephone}>{user.telefono}</span>
-                      <span className={styles.age}>{user.edad} años</span>
-                    </div>
-                    <hr />
-                  </div>
-                ))}
-              </div>
+              <table className={styles.productosTable}>
+                <thead>
+                  <tr>
+                    <th className={styles.proveedorName}>Nombre</th>
+                    <th className={styles.proveedorEmail}>Rol</th>
+                    <th className={styles.proveedorEmail}>Número</th>
+                    <th className={styles.proveedorWeb}>Edad</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map((usuario) => (
+                    <tr key={usuario.id}>
+                      <td className={styles.productoNombre}>
+                        {usuario.nombre}
+                        {usuario.apellidos}
+                      </td>
+                      <td className={`${styles.marca} ${styles.centered}`}>
+                        {tipoUsuarioMap[usuario.idTipoUser]}
+                      </td>
+                      <td className={styles.productoModelo}>
+                        {usuario.telefono}
+                      </td>
+                      <td className={`${styles.stock} ${styles.centered}`}>
+                        {usuario.edad}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
             </div>
             <div className={styles.stadistic}>
               <div className={styles.usersNumber}>
