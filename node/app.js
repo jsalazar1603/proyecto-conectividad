@@ -4,6 +4,7 @@ import db from './database/db.js'
 import userRoutes from './routes/routes.js'
 import proveedorRoutes from './routes/proveedorRoutes.js'
 import productoRoutes from './routes/productoRoutes.js'
+import pedidosRoutes from './routes/pedidosRoutes.js'
 
 const app=express();
 // Configuración del middleware y conexión a la base de datos...
@@ -27,6 +28,9 @@ app.use('/proveedor',proveedorRoutes);
 
 //Rutas para productos
 app.use('/producto',productoRoutes);
+
+//Rutas para pedidos
+app.use('/pedido',pedidosRoutes);
 
 //Ruta de prueba
 app.get('/',(req,res)=>{
