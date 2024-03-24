@@ -1,5 +1,6 @@
 import PedidosModel from "../models/PedidosModel.js";
 import DetallesPedidosModel from "../models/DetallesPedidosModel.js";
+import sequelize from "../database/db.js";
 
 // Mostrar todos los pedidos y sus detallespedidos
 export const getAllPedidos = async (req, res) => {
@@ -52,6 +53,28 @@ export const createPedido = async (req, res) => {
     res.json({ message: "Registro creado exitosamente" });
   } catch (error) {
     res.json({ message: error.message });
+  }
+};
+//crear un registro de pedido con una transaccion
+export const createPedidoTransaccion = async (req, res) => {
+  const t = await sequelize.transaction();
+  try {
+    const { detallespedidos, ...pedido } = req.body;
+    const nuevoPedido = await PedidosModel.create(pedido, { transaction: t });
+    let total = 0;
+    detallespedidos.forEach(async (detalle) => {
+      total += detalle.precio * detalle.cantidad;
+      await DetallesPedidosModel.create({
+        ...detalle,
+        idPedido: nuevoPedido.id,
+      }, { transaction: t });
+    });
+    await PedidosModel.update({ total }, { where: { id: nuevoPedido.id }, transaction: t });
+    await t.commit();
+    res.json({ message: "Registro creado exitosamente" });
+  } catch (error) {
+    await t.rollback();
+    res.json({ message: "error" });
   }
 };
 

@@ -4,7 +4,7 @@ import PedidosModel from "./PedidosModel.js";
 
 const DetallesPedidosModel = db.define(
     "detallespedidos",{
-        idProducto: { type: DataTypes.INTEGER },
+        descripcion: { type: DataTypes.STRING },
         cantidad: { type: DataTypes.INTEGER },
         precio: { type: DataTypes.FLOAT },
         idPedido: { type: DataTypes.INTEGER },
