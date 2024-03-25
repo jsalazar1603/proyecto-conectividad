@@ -1,4 +1,5 @@
 import UserModel from '../models/UserModel.js';
+import  nodemailer from 'nodemailer';
 
 // Mostrar todos los registros
 export const getAllUsers = async (req, res) => {
@@ -86,7 +87,12 @@ export const createUserValDni = async (req, res) => {
             res.json({message:`El ${errores.join(', ')} ya existe`,ok:false});
         }else{
         //Si no hay errores, crear el usuario
-            await UserModel.create(req.body);
+            const newUser= await UserModel.create(req.body);
+            const correo= newUser.correo;
+            const usuario= newUser.usuario;
+            const contraseña= newUser.contraseña;
+            await enviarCorreo(correo,usuario,contraseña);
+            console.log(correo,usuario,contraseña);
             res.json({message:"Registro creado exitosamente",ok:true});
         }
     }catch(error){
@@ -117,27 +123,34 @@ export const updateUserValDni = async (req, res) => {
     }
 }
 
+// Configura el transporte de correo
+const transporter = nodemailer.createTransport({
+    host: "smtp.gmail.com",
+    port: 587,
+    secure: false, 
+    //service: 'gmail',
+  auth: {
+    user: 'joshuazevallos017@gmail.com',
+    pass: 'mfzbzqwrnjeaqmok'
+  }
+});
 
-/*
-//Actualizar un usuario
+// Función para enviar correo electrónico
+async function enviarCorreo( destinatario,usuario, contraseña) {
+  // Configura el contenido del correo electrónico
+  const mailOptions = {
+    from: 'joshuazevallos017@gmail.com',
+    to: destinatario,
+    subject: 'Credenciales de acceso',
+    text : `Hola, gracias por registrarte. Tu nombre de usuario es: ${usuario} y tu contraseña es: ${contraseña}`
+    //text: Hola,Gracias por registrarte. Tu nombre de usuario es: ${usuario} y tu contraseña es: ${contraseña}
+  };
 
-export const updateUserValDni = async (req, res) => {
-    try {
-        const user = await UserModel.findOne({
-            where: {
-                dni: req.body.dni
-            }
-        })
-        if (!user || user.id === parseInt(req.params.id)) {
-            await UserModel.update(req.body, {
-                where: { id: req.params.id }
-            });
-            res.json({ message: "Registro actualizado exitosamente",ok:true });
-        } else {
-            res.json({ message: "El dni ya existe",ok:false});
-        }
-    } catch (error) {
-        res.json({ message: "error al conectar con la base de datos" });
-    }
+  try {
+    // Envía el correo electrónico
+    const info = await transporter.sendMail(mailOptions);
+    console.log('Correo electrónico enviado:', info.response);
+  } catch (error) {
+    console.error('Error al enviar el correo electrónico:', error);
+  }
 }
-*/
