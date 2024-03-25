@@ -55,11 +55,13 @@ const ModificarUsuario = () => {
   const renderUsers = () => {
     if (searchQuery !== "" && !showAllUsers) {
       return searchResults.map((user) => (
-        <tr key={user.id}>
-          <td>{user.nombre}</td>
-          <td>{user.apellidos}</td>
-          <td>{tipoUsuarioMap[user.idTipoUser]}</td>
-          <td>{user.estado ? "Activo" : "Inhabilitado"}</td>
+        <tr key={user.id} className={styles.dataRow}>
+          <td className={styles.dataName}>{user.nombre}</td>
+          <td className={styles.dataLastName}>{user.apellidos}</td>
+          <td className={styles.dataRole}>{tipoUsuarioMap[user.idTipoUser]}</td>
+          <td className={styles.dataState}>
+            {user.estado ? "Activo" : "Inhabilitado"}
+          </td>
           <td>
             <Link to={`/modificardatos/${user.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
@@ -87,11 +89,13 @@ const ModificarUsuario = () => {
       ));
     } else {
       return users.map((user) => (
-        <tr key={user.id}>
-          <td>{user.nombre}</td>
-          <td>{user.apellidos}</td>
-          <td>{tipoUsuarioMap[user.idTipoUser]}</td>
-          <td>{user.estado ? "Activo" : "Inhabilitado"}</td>
+        <tr key={user.id} className={styles.dataRow}>
+          <td className={styles.dataName}>{user.nombre}</td>
+          <td className={styles.dataLastName}>{user.apellidos}</td>
+          <td className={styles.dataRole}>{tipoUsuarioMap[user.idTipoUser]}</td>
+          <td className={styles.dataState}>
+            {user.estado ? "Activo" : "Inhabilitado"}
+          </td>
           <td>
             <Link to={`/modificardatos/${user.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
@@ -162,15 +166,15 @@ const ModificarUsuario = () => {
             </div>
             <div className={styles.listContainer}>
               <table className={styles.table}>
-                <thead>
-                  <tr>
+                <thead className={styles.topSectionTable}>
+                  <tr className={styles.columnsName}>
                     <th>Nombre</th>
                     <th>Apellidos</th>
                     <th>Rol</th>
                     <th>Estado</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className={styles.tableContent}>
                   {renderUsers()}
                   {showNoResults && (
                     <tr>

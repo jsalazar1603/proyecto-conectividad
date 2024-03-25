@@ -81,7 +81,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 10px;
   width: 1018px;
   height: auto;
   background-color: #ffffff;
@@ -137,8 +137,41 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
-  width: 982px;
+  width: 100%;
   height: auto;
+}
+.topSectionTable{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70%;
+  height: 50px;
+}
+.columnsName{
+  display: flex;
+  width: 100%;
+  gap: 130px;
+}
+.tableContent{
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.dataRow{
+  display: flex;
+  align-items: center;
+}
+.dataName{
+  width: 185px;
+}
+.dataLastName{
+  width: 215px;
+}
+.dataRole{
+  width: 160px;
+}
+.dataState{
+  width: 120px;
 }
 .columns {
   display: flex;
@@ -229,6 +262,6 @@
   font-weight: bold;
 }
 .listContainer{
-  max-height: 300px;
+  max-height: 280px;
   overflow: auto;
 }

@@ -89,7 +89,7 @@
   padding: 20px;
   border-radius: 10px;
 }
-.container .title {
+.container .titlo {
   font-size: 24px;
 }
 .search {
@@ -118,8 +118,7 @@
   height: 46px;
   background-color: #ffffff00;
 }
-.btnBuscar,
-.btnListar {
+.btnBuscar {
   height: 46px;
   width: 150px;
   border-radius: 8px;
@@ -138,13 +137,13 @@
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 100%;
   height: auto;
 }
 .topSectionTable {
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 60%;
+  width: 62%;
   height: 50px;
 }
 .columnsName {
@@ -152,31 +151,59 @@
   width: 100%;
   justify-content: space-between;
 }
-.dataName {
-  width: 250px;
-}
-.dataEmail {
-  width: 260px;
-}
-.dataTelephone {
-  width: 180px;
-}
-.columnName span {
-  width: 240px;
-}
-.proveedorData1 {
+.tableContent {
   display: flex;
-  align-items: center;
-  height: 42px;
-  font-size: 15px;
-  gap: 15px;
-}
-.proveedorData1 span {
-  width: 240px;
+  flex-direction: column;
+  gap: 5px;
 }
 .dataRow {
   display: flex;
   align-items: center;
+  font-size: 14px;
+}
+.dataName {
+  width: 170px;
+}
+.dataStock {
+  width: 165px;
+}
+.dataState {
+  width: 170px;
+}
+.dataIdProveedor{
+  width: 200px;
+}
+.columns {
+  display: flex;
+  width: 978px;
+  height: 42px;
+}
+.columns span {
+  width: 160px;
+}
+.userData1 {
+  display: flex;
+  align-items: center;
+  height: 42px;
+}
+.userData1 span {
+  width: 160px;
+}
+.userData2 {
+  display: flex;
+  align-items: center;
+  height: 42px;
+}
+.userData2 span {
+  width: 160px;
+}
+.userData3 {
+  display: flex;
+  align-items: center;
+  height: 42px;
+}
+.userData3 span {
+  width: 160px;
 }
 .btnModificar {
   height: 42px;
@@ -204,6 +231,7 @@
   cursor: pointer;
   transition: 0.2s all ease-out;
   border-radius: 5px;
+  width: 100px;
 }
 .btnModificar:hover {
   background-color: rgb(50, 76, 88);
@@ -226,12 +254,19 @@
 .btnBackbutton:hover {
   background-color: #416b7e;
 }
+.stockBajo {
+  color: rgb(175, 46, 46);
+  font-weight: bold;
+}
+.stockOptimo {
+  color: rgb(41, 173, 41);
+  font-weight: bold;
+}
 .listContainer {
   max-height: 280px;
   overflow: auto;
 }
-.tableContent {
+.dataRow {
   display: flex;
-  flex-direction: column;
-  gap: 5px;
+  align-items: center;
 }

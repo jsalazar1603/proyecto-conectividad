@@ -1,5 +1,5 @@
 import styles from "../styles/MenuLateral.module.css";
-import { Package, Shop, User } from "iconoir-react";
+import { Package, Shop, User, Notes } from "iconoir-react";
 import { Link } from "react-router-dom";
 
 const MenuLateral = (props) => {
@@ -42,6 +42,18 @@ const MenuLateral = (props) => {
             >
               <Package size="24" color="#ffffff" />
               <span className={styles.optionName}>Gestionar Producto</span>
+            </div>
+          </Link>
+          <Link to="/gestionarpedido">
+          <div
+              className={`${
+                props.opcionActiva == "pedido"
+                  ? styles.selectedOption
+                  : styles.option
+              }`}
+            >
+              <Notes size="24" color="#ffffff" />
+              <span className={styles.optionName}>Gestionar Pedido</span>
             </div>
           </Link>
         </section>

@@ -49,53 +49,57 @@ const ModificarProveedor = () => {
   const renderProveedores = () => {
     if (searchQuery !== "" && !showAllProveedores) {
       return searchResults.map((proveedor) => (
-        <div key={proveedor.id}>
-          <div className={styles.proveedorData1}>
-            <span className={styles.name}>{proveedor.nombre}</span>
-            <span className={styles.usuario}>{proveedor.correo}</span>
-            <span className={styles.telefono}>{proveedor.telefono}</span>
+        <tr key={proveedor.id} className={styles.dataRow}>
+          <td className={styles.dataName}>{proveedor.nombre}</td>
+          <td className={styles.dataEmail}>{proveedor.correo}</td>
+          <td className={styles.dataTelephone}>{proveedor.telefono}</td>
+          <td>
             <Link to={`/modificardatosproveedor/${proveedor.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
+          </td>
+          <td>
             <button
               onClick={() => deleteProveedor(proveedor.id)}
               className={styles.btnDardebaja}
             >
               Dar de baja
             </button>
-            {/* Agregar más campos si es necesario */}
-          </div>
-          <hr />
-        </div>
+          </td>
+          {/* Agregar más celdas si es necesario */}
+        </tr>
       ));
     } else {
       return proveedores.map((proveedor) => (
-        <div key={proveedor.id}>
-          <div className={styles.proveedorData1}>
-            <span className={styles.name}>{proveedor.nombre}</span>
-            <span className={styles.usuario}>{proveedor.correo}</span>
-            <span className={styles.cellphone}>{proveedor.telefono}</span>
+        <tr key={proveedor.id} className={styles.dataRow}>
+          <td className={styles.dataName}>{proveedor.nombre}</td>
+          <td className={styles.dataEmail}>{proveedor.correo}</td>
+          <td className={styles.dataTelephone}>{proveedor.telefono}</td>
+          <td>
             <Link to={`/modificardatosproveedor/${proveedor.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
+          </td>
+          <td>
             <button
               onClick={() => deleteProveedor(proveedor.id)}
               className={styles.btnDardebaja}
             >
               Dar de baja
             </button>
-            {/* Agregar más campos si es necesario */}
-          </div>
-          <hr />
-        </div>
+          </td>
+          {/* Agregar más celdas si es necesario */}
+        </tr>
       ));
     }
   };
+
   const deleteProveedor = async (id) => {
     await axios.delete(`${URI}${id}`);
     getProveedores();
     alert("Proveedor eliminado");
   };
+
   return (
     <section className={styles.mainContainer}>
       <MenuLateral opcionActiva="proveedor" />
@@ -123,18 +127,26 @@ const ModificarProveedor = () => {
                 Listar
               </button>
             </div>
-            <div className={styles.table}>
-              <div className={styles.columns}>
-                <span className={styles.name}>Nombre</span>
-                <span className={styles.correo}>Correo</span>
-                <span className={styles.cellphone}>telefono</span>
-              </div>
-              {renderProveedores()}
-              {showNoResults && ( // Utiliza el estado showNoResults para controlar la visibilidad del mensaje
-                <div className={styles.noResults}>
-                  No se encontraron coincidencias
-                </div>
-              )}
+            <div className={styles.listContainer}>
+              <table className={styles.table}>
+                <thead className={styles.topSectionTable}>
+                  <tr className={styles.columnsName}>
+                    <th>Nombre</th>
+                    <th>Correo</th>
+                    <th>Teléfono</th>
+                  </tr>
+                </thead>
+                <tbody className={styles.tableContent}>
+                  {renderProveedores()}
+                  {showNoResults && (
+                    <tr className={styles.columnsName}>
+                      <td colSpan="3" className={styles.noResults}>
+                        No se encontraron coincidencias
+                      </td>
+                    </tr>
+                  )}
+                </tbody>
+              </table>
             </div>
           </div>
           <Link to="/gestionarproveedor">

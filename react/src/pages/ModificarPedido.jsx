@@ -7,27 +7,27 @@ import MenuLateral from "../components/MenuLateral";
 
 const URI = "http://localhost:8000/producto/";
 
-const ModificarProducto = () => {
-  const [productos, setProductos] = useState([]);
+const ModificarPedido = () => {
+  const [pedidos, setPedidos] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState([]);
-  const [showAllProductos, setShowAllProductos] = useState(true);
+  const [showAllPedidos, setShowAllPedidos] = useState(true);
   const [showNoResults, setShowNoResults] = useState(false);
 
   useEffect(() => {
-    getProductos();
+    getPedidos();
   }, []);
 
-  console.log(productos);
+  console.log(pedidos);
   //procedimiento para mostrar todos los productos
-  const getProductos = async () => {
+  const getPedidos = async () => {
     const res = await axios.get(URI);
-    setProductos(res.data);
+    setPedidos(res.data);
   };
 
-  const searchProductos = () => {
-    return productos.filter((producto) => {
-      const fullName = `${producto.nombre}`.toLowerCase();
+  const searchPedidos = () => {
+    return pedidos.filter((pedido) => {
+      const fullName = `${pedido.nombre}`.toLowerCase();
       return fullName.includes(searchQuery.toLowerCase());
     });
   };
@@ -37,52 +37,52 @@ const ModificarProducto = () => {
   };
 
   const handleSearchClick = () => {
-    const results = searchProductos();
+    const results = searchPedidos();
     setSearchResults(results);
-    setShowAllProductos(false);
+    setShowAllPedidos(false);
     setShowNoResults(results.length === 0);
   };
 
   const handleListAllClick = () => {
-    setShowAllProductos(true);
+    setShowAllPedidos(true);
   };
 
-  const renderProductos = () => {
-    if (searchQuery !== "" && !showAllProductos) {
-      return searchResults.map((producto) => (
-        <tr key={producto.id} className={styles.dataRow}>
-          <td className={styles.dataName}>{producto.nombre}</td>
+  const renderPedidos = () => {
+    if (searchQuery !== "" && !showAllPedidos) {
+      return searchResults.map((pedido) => (
+        <tr key={pedido.id} className={styles.dataRow}>
+          <td className={styles.dataName}>{pedido.nombre}</td>
           <td className={styles.dataStock}>
-            {producto.stock <= 30 ? (
-              <span className={styles.stockBajo}>{producto.stock}(Bajo)</span>
+            {pedido.stock <= 30 ? (
+              <span className={styles.stockBajo}>{pedido.stock}(Bajo)</span>
             ) : (
               <span className={styles.stockOptimo}>
-                {producto.stock}(Óptimo)
+                {pedido.stock}(Óptimo)
               </span>
             )}
           </td>
-          <td className={styles.dataState}>{producto.estado ? "Activo" : "Inhabilitado"}</td>
+          <td className={styles.dataState}>{pedido.estado ? "Activo" : "Inhabilitado"}</td>
           <td className={styles.dataIdProveedor}>
-            {producto.idProveedor == null
+            {pedido.idProveedor == null
               ? "Sin especificar"
-              : producto.proveedor.nombre}
+              : pedido.proveedor.nombre}
           </td>
           <td>
-            <Link to={`/modificardatosproducto/${producto.id}`}>
+            <Link to={`/modificardatospedido/${pedido.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
           </td>
           <td>
-            {producto.estado ? (
+            {pedido.estado ? (
               <button
-                onClick={() => deleteProducto(producto.id)}
+                onClick={() => deletePedido(pedido.id)}
                 className={styles.btnDardebaja}
               >
                 Inhabilitar
               </button>
             ) : (
               <button
-                onClick={() => activateProducto(producto.id)}
+                onClick={() => activatePedido(pedido.id)}
                 className={styles.btnDardebaja}
               >
                 Habilitar
@@ -92,40 +92,40 @@ const ModificarProducto = () => {
         </tr>
       ));
     } else {
-      return productos.map((producto) => (
-        <tr key={producto.id} className={styles.dataRow}>
-          <td className={styles.dataName}>{producto.nombre}</td>
+      return pedidos.map((pedido) => (
+        <tr key={pedido.id} className={styles.dataRow}>
+          <td className={styles.dataName}>{pedido.nombre}</td>
           <td className={styles.dataStock}>
-            {producto.stock <= 30 ? (
-              <span className={styles.stockBajo}>{producto.stock}(Bajo)</span>
+            {pedido.stock <= 30 ? (
+              <span className={styles.stockBajo}>{pedido.stock}(Bajo)</span>
             ) : (
               <span className={styles.stockOptimo}>
-                {producto.stock}(Óptimo)
+                {pedido.stock}(Óptimo)
               </span>
             )}
           </td>
-          <td className={styles.dataState}>{producto.estado ? "Activo" : "Inhabilitado"}</td>
+          <td className={styles.dataState}>{pedido.estado ? "Activo" : "Inhabilitado"}</td>
           <td className={styles.dataIdProveedor}>
-            {producto.idProveedor == null
+            {pedido.idProveedor == null
               ? "Sin especificar"
-              : producto.proveedor.nombre}
+              : pedido.proveedor.nombre}
           </td>
           <td>
-            <Link to={`/modificardatosproducto/${producto.id}`}>
+            <Link to={`/modificardatospedido/${pedido.id}`}>
               <button className={styles.btnModificar}>Modificar</button>
             </Link>
           </td>
           <td>
-            {producto.estado ? (
+            {pedido.estado ? (
               <button
-                onClick={() => deleteProducto(producto.id)}
+                onClick={() => deletePedido(pedido.id)}
                 className={styles.btnDardebaja}
               >
                 Inhabilitar
               </button>
             ) : (
               <button
-                onClick={() => activateProducto(producto.id)}
+                onClick={() => activatePedido(pedido.id)}
                 className={styles.btnDardebaja}
               >
                 Habilitar
@@ -138,33 +138,33 @@ const ModificarProducto = () => {
   };
 
   //procedimiento para inhabilitar un producto
-  const deleteProducto = async (id) => {
+  const deletePedido = async (id) => {
     await axios.put(`${URI}deactivate/${id}`);
     // Actualizar el estado de los productos después de eliminar/inhabilitar un producto
-    await getProductos();
+    await getPedidos();
     // Actualizar la lista de productos antes de actualizar los resultados de búsqueda
-    setSearchResults(searchProductos());
-    alert("Producto Inhabilitado");
+    setSearchResults(searchPedidos());
+    alert("Pedido Inhabilitado");
   };
 
-  const activateProducto = async (id) => {
+  const activatePedido = async (id) => {
     await axios.put(`${URI}activate/${id}`);
     // Actualizar el estado de los productos después de activar un producto
-    await getProductos();
+    await getPedidos();
     // Actualizar la lista de productos antes de actualizar los resultados de búsqueda
-    setSearchResults(searchProductos());
-    alert("Producto Habilitado");
+    setSearchResults(searchPedidos());
+    alert("Pedido Habilitado");
   };
   return (
     <section className={styles.mainContainer}>
-      <MenuLateral opcionActiva="producto" />
+      <MenuLateral opcionActiva="pedido" />
       <div className={styles.rightSection}>
         <div className={styles.topSection}>
-          <h2 className={styles.title}>MODIFICAR PRODUCTO</h2>
+          <h2 className={styles.title}>MODIFICAR PEDIDO</h2>
         </div>
         <div className={styles.bottomSection}>
           <div className={styles.container}>
-            <h2 className={styles.title}>Buscar producto</h2>
+            <h2 className={styles.title}>Buscar pedido</h2>
             <div className={styles.search}>
               <div className={styles.searchBar}>
                 <input
@@ -193,7 +193,7 @@ const ModificarProducto = () => {
                   </tr>
                 </thead>
                 <tbody className={styles.tableContent}>
-                  {renderProductos()}
+                  {renderPedidos()}
                   {showNoResults && (
                     <tr className={styles.columnsName}>
                       <td colSpan="5" className={styles.noResults}>
@@ -205,7 +205,7 @@ const ModificarProducto = () => {
               </table>
             </div>
           </div>
-          <Link to="/gestionarproducto">
+          <Link to="/gestionarpedido">
             <button className={styles.btnBackbutton}>Volver</button>
           </Link>
         </div>
@@ -214,4 +214,4 @@ const ModificarProducto = () => {
   );
 };
 
-export default ModificarProducto;
+export default ModificarPedido;

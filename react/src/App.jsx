@@ -13,6 +13,10 @@ import GestionarProducto from "./pages/GestionarProducto";
 import RegistrarProducto from "./pages/RegistrarProducto";
 import ModificarProducto from "./pages/ModificarProducto";
 import ModificarDatosProducto from './pages/ModificarDatosProducto'
+import GestionarPedido from "./pages/GestionarPedido";
+import RegistrarPedido from "./pages/RegistrarPedido";
+import ModificarPedido from "./pages/ModificarPedido";
+import ModificarDatosPedido from "./pages/ModificarDatosPedido";
 
 function App() {
   return (
@@ -32,6 +36,10 @@ function App() {
         <Route path="/registrarproducto" element={<RegistrarProducto />}></Route>
         <Route path="/modificarproducto" element={<ModificarProducto/>}></Route>
         <Route path="/modificardatosproducto/:id" element={<ModificarDatosProducto/>}></Route>
+        <Route path="/gestionarpedido" element={<GestionarPedido/>}></Route>
+        <Route path="/registrarpedido" element={<RegistrarPedido/>}></Route>
+        <Route path="/modificarpedido" element={<ModificarPedido/>}></Route>
+        <Route path="/modificardatospedido/:id" element={<ModificarDatosPedido/>}></Route>
       </Routes>
     </BrowserRouter>
   );

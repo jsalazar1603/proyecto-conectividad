@@ -78,8 +78,7 @@ const GestionarUsuario = () => {
                   {users.map((usuario) => (
                     <tr key={usuario.id}>
                       <td className={styles.productoNombre}>
-                        {usuario.nombre}
-                        {usuario.apellidos}
+                        {usuario.nombre} {usuario.apellidos}
                       </td>
                       <td className={`${styles.marca} ${styles.centered}`}>
                         {tipoUsuarioMap[usuario.idTipoUser]}
