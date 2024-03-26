@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import MenuLateral from "../components/MenuLateral";
 
-const URI = "http://localhost:8000/proveedor/";
+const URI = "http://localhost:9000/proveedor/";
 
 const ModificarProveedor = () => {
   const [proveedores, setProveedores] = useState([]);

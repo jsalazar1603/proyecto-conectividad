@@ -5,7 +5,7 @@ import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
 import MenuLateral from "../components/MenuLateral";
 
-const URI = "http://localhost:8000/proveedor/";
+const URI = "http://localhost:9000/proveedor/";
 
 const RegistrarProveedor = () => {
   const [nombre, setNombre] = useState("");

@@ -2,11 +2,10 @@ import { useState, useEffect } from "react";
 import styles from "../styles/RegistrarUsuario.module.css";
 import { Link, useParams } from "react-router-dom";
 import axios from "axios";
-import { Package, Shop, User } from "iconoir-react";
 import MenuLateral from "../components/MenuLateral";
 
-const URI = "http://localhost:8000/producto/";
-const URI2 = "http://localhost:8000/proveedor/";
+const URI = "http://localhost:9000/pedido/";
+const URI2 = "http://localhost:9000/proveedor/";
 
 const ModificarDatosPedido = () => {
   const [nombre, setNombre] = useState("");

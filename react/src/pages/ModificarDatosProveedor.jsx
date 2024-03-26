@@ -5,7 +5,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
 
-const URI = "http://localhost:8000/proveedor/";
+const URI = "http://localhost:9000/proveedor/";
 
 const ModificarDatosProveedor = () => {
   const [nombre, setNombre] = useState("");

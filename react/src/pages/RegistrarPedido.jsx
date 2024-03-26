@@ -1,22 +1,33 @@
 import { useEffect, useState } from "react";
-import styles from "../styles/RegistrarUsuario.module.css";
+import styles from "../styles/RegistrarPedido.module.css";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import MenuLateral from "../components/MenuLateral";
 
-const URI = "http://localhost:8000/producto/";
-const URI2 = "http://localhost:8000/proveedor/";
+const URI = "http://localhost:9000/pedido/";
+const URI2 = "http://localhost:9000/proveedor/";
 
 const RegistrarPedido = () => {
-  const [nombre, setNombre] = useState("");
-  const [marca, setMarca] = useState("");
-  const [modelo, setModelo] = useState("");
-  const [descripcion, setDescripcion] = useState("");
-  const [stock, setStock] = useState("");
-  const [precio, setPrecio] = useState("");
+  const [fecha, setFecha] = useState(() =>
+    new Date().toISOString().slice(0, 10)
+  );
   const [estado, setEstado] = useState("");
+  const [total, setTotal] = useState("");
   const [idProveedor, setIdProveedor] = useState("1");
   const [listaPedidos, setListaPedidos] = useState([]);
+  const [producto, setProducto] = useState();
+  const [stock, setStock] = useState();
+  const [precio, setPrecio] = useState();
+  const [productosLista, setProductosLista] = useState([]);
+  const [totalProductos, setTotalProductos] = useState(0);
+  const [detallesPedido, setDetallesPedido] = useState([]);
+
+  const estadoPedido = [
+    { value: "", label: "Seleccionar" },
+    { value: "1", label: "Solicitado" },
+    { value: "2", label: "En proceso" },
+    { value: "3", label: "Recibido" },
+  ];
 
   // const tipoEstado = [
   //   { value: "0", label: "Inhabilitado" },
@@ -26,41 +37,69 @@ const RegistrarPedido = () => {
     getPedidos();
   }, []);
 
+  useEffect(() => {
+    calcularTotalProductos(); // Calcula la suma de los totales cada vez que la lista de productos cambie
+  }, [productosLista]);
+
   const getPedidos = async () => {
     const res = await axios.get(URI2);
     setListaPedidos(res.data);
   };
-  const store = async (e) => {
-    e.preventDefault();
-
-    const respuesta = await axios.post(URI, {
-      nombre: nombre,
-      marca: marca,
-      modelo: modelo,
-      descripcion: descripcion,
-      stock: stock,
+  const handleAddDetallePedido = () => {
+    const nuevoDetallePedido = {
+      descripcion: producto,
+      cantidad: stock,
       precio: precio,
-      estado: "1",
-      idProveedor: idProveedor,
-    });
-
-    console.log("respuesta: ", respuesta);
-
-    alert("Pedido registrado");
-    handleClear();
-
-    console.log(idProveedor);
+      total: (stock * precio).toFixed(2),
+    };
+    setDetallesPedido([...detallesPedido, nuevoDetallePedido]);
+    setProducto("");
+    setStock(0);
+    setPrecio(0);
+    const nuevaLista = [...productosLista, nuevoDetallePedido]; // Agregando el nuevo producto a la lista existente
+    setProductosLista(nuevaLista);
+    handleClearList();
   };
 
+  const handleGuardarPedido = async () => {
+    const pedidoPrincipal = {
+      fecha: fecha,
+      estado: estadoPedido[1].label,
+      idProveedor: idProveedor,
+      detallespedidos: detallesPedido,
+    };
+
+    try {
+      const response = await axios.post(URI, pedidoPrincipal);
+      console.log(response.data);
+      // Restablecer estado después de la creación exitosa
+      setFecha("");
+      setEstado("");
+      setIdProveedor("");
+      setDetallesPedido([]);
+      setProductosLista([]);
+      setTotalProductos(0);
+    } catch (error) {
+      console.error(error);
+    }
+  };
   const handleClear = () => {
-    setNombre("");
-    setMarca("");
-    setModelo("");
-    setDescripcion("");
+    setFecha("");
+    setEstado("");
+    setTotal("");
+    setIdProveedor("");
+  };
+  const handleClearList = () => {
+    setProducto("");
     setStock("");
     setPrecio("");
-    setEstado("");
-    setIdProveedor("");
+  };
+  const calcularTotalProductos = () => {
+    let sumaTotal = 0;
+    productosLista.forEach((producto) => {
+      sumaTotal += parseFloat(producto.total);
+    });
+    setTotalProductos(sumaTotal.toFixed(2));
   };
   return (
     <section className={styles.mainContainer}>
@@ -73,64 +112,35 @@ const RegistrarPedido = () => {
           <div className={styles.userData}>
             <h2 className={styles.title}>DATOS DE PEDIDO</h2>
             <div className={styles.form}>
-              <form onSubmit={store} className={styles.formularioMain}>
+              <form onSubmit={(e) => e.preventDefault()} className={styles.formularioMain}>
                 <div className={styles.formLeft}>
+                  <div>
+                    <label htmlFor="">Proveedor</label>
+                    <select
+                      value={idProveedor}
+                      onChange={(e) => setIdProveedor(e.target.value)}
+                    >
+                      <option value="1">Sin especificar</option>
+                      {listaPedidos.map((pedido) => (
+                        <option key={pedido.value} value={pedido.id}>
+                          {pedido.nombre}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
                   <div>
                     <label htmlFor="">Nombre</label>
                     <input
                       placeholder="Ingrese nombre"
                       type="text"
-                      value={nombre}
-                      onChange={(e) => setNombre(e.target.value)}
+                      value={producto}
+                      onChange={(e) => setProducto(e.target.value)}
                     />
                   </div>
                   <div>
-                    <label htmlFor="">Marca</label>
+                    <label htmlFor="">Cantidad (unidades)</label>
                     <input
-                      placeholder="Ingrese Marca"
-                      type="text"
-                      value={marca}
-                      onChange={(e) => setMarca(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="">Modelo</label>
-                    <input
-                      placeholder="Ingrese Modelo"
-                      type="text"
-                      value={modelo}
-                      onChange={(e) => setModelo(e.target.value)}
-                    />
-                  </div>
-                  <div
-                    style={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "center",
-                    }}
-                  >
-                    <label style={{ marginLeft: "-170px" }} htmlFor="">
-                      Descripcion
-                    </label>
-                    <textarea
-                      placeholder="Ingrese descripcion"
-                      type="text"
-                      value={descripcion}
-                      onChange={(e) => setDescripcion(e.target.value)}
-                      style={{
-                        width: "270px",
-                        height: "150px",
-                        resize: "none",
-                        borderRadius: "8px",
-                      }}
-                    />
-                  </div>
-                </div>
-                <div className={styles.formMiddle}>
-                  <div>
-                    <label htmlFor="">Stock (unidades)</label>
-                    <input
-                      placeholder="Ingrese Stock"
+                      placeholder="Ingrese Cantidad"
                       type="number"
                       value={stock}
                       onChange={(e) => setStock(e.target.value)}
@@ -146,22 +156,42 @@ const RegistrarPedido = () => {
                     />
                   </div>
                   <div>
-                    <label htmlFor="">Proveedor</label>
-                    <select
-                      value={idProveedor}
-                      onChange={(e) => setIdProveedor(e.target.value)}
-                    >
-                      <option value="1">Sin especificar</option>
-                      {listaPedidos.map((pedido) => (
-                        <option key={pedido.value} value={pedido.id}>
-                          {pedido.nombre}
-                        </option>
+                    <button onClick={handleAddDetallePedido}>Añadir</button>
+                    <button onClick={handleClearList}>Limpiar</button>
+                  </div>
+                </div>
+                <div className={styles.formMiddle}>
+                  <h2 className={styles.detailTitle}>Detalles de pedido</h2>
+                  <table className={styles.listDetailTable}>
+                    <thead className={styles.topSectionTable}>
+                      <tr className={styles.columnsName}>
+                        <th>Nombre</th>
+                        <th>Cantidad</th>
+                        <th>Total</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {productosLista.map((producto, index) => (
+                        <tr key={index}>
+                          <td className={styles.productName}>
+                            {producto.descripcion}
+                          </td>
+                          <td className={styles.productStock}>
+                            {producto.cantidad}
+                          </td>
+                          <td className={styles.productTotal}>
+                            {producto.total}
+                          </td>
+                        </tr>
                       ))}
-                    </select>
+                    </tbody>
+                  </table>
+                  <div className={styles.totalCounter}>
+                    <span>Total: {totalProductos}</span>
                   </div>
                 </div>
                 <div className={styles.buttons}>
-                  <button type="submit" className={styles.btnAceptar}>
+                  <button onClick={handleGuardarPedido} className={styles.btnAceptar}>
                     Aceptar
                   </button>
                   <button

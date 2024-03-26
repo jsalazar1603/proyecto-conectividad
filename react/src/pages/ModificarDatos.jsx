@@ -5,7 +5,7 @@ import axios from "axios";
 import { Package, Shop, User } from "iconoir-react";
 import MenuLateral from "../components/MenuLateral";
 
-const URI = "http://localhost:8000/users/";
+const URI = "http://localhost:9000/users/";
 
 const ModificarDatos = () => {
   const [nombre, setNombre] = useState("");
