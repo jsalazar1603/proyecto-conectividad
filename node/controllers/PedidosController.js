@@ -5,7 +5,9 @@ import sequelize from "../database/db.js";
 // Mostrar todos los pedidos y sus detallespedidos
 export const getAllPedidos = async (req, res) => {
   try {
-    const pedidos = await PedidosModel.findAll({ include: DetallesPedidosModel });
+    const pedidos = await PedidosModel.findAll({
+      include: DetallesPedidosModel,
+    });
     res.json(pedidos);
   } catch (error) {
     res.json({ message: error.message });
@@ -28,7 +30,7 @@ export const getPedido = async (req, res) => {
       where: {
         id: req.params.id,
       },
-      include: DetallesPedidosModel
+      include: DetallesPedidosModel,
     });
     res.json(pedido[0]);
   } catch (error) {
@@ -36,7 +38,7 @@ export const getPedido = async (req, res) => {
   }
 };
 
-//crear un registro de pedido 
+//crear un registro de pedido
 export const createPedido = async (req, res) => {
   try {
     const { detallespedidos, ...pedido } = req.body;
@@ -64,35 +66,35 @@ export const createPedidoTransaccion = async (req, res) => {
     let total = 0;
     detallespedidos.forEach(async (detalle) => {
       total += detalle.precio * detalle.cantidad;
-      await DetallesPedidosModel.create({
-        ...detalle,
-        idPedido: nuevoPedido.id,
-      }, { transaction: t });
+      await DetallesPedidosModel.create(
+        {
+          ...detalle,
+          idPedido: nuevoPedido.id,
+        },
+        { transaction: t }
+      );
     });
-    await PedidosModel.update({ total }, { where: { id: nuevoPedido.id }, transaction: t });
+    await PedidosModel.update(
+      { total },
+      { where: { id: nuevoPedido.id }, transaction: t }
+    );
     await t.commit();
     res.json({ message: "Registro creado exitosamente" });
   } catch (error) {
     await t.rollback();
-    res.json({ message: "error" });
+    res.json({ message: error.message });
   }
 };
 
-// Actualizar datos de un pedido 
-export const updatePedido = async (req, res) => {
+// Actualizar datos de un pedido
+export const updatePedidoEstado = async (req, res) => {
   try {
-    const { detallespedidos, ...pedido } = req.body;
-    await PedidosModel.update(pedido, {
-      where: { id: req.params.id },
-    });
-    let total = 0;
-    detallespedidos.forEach(async (detalle) => {
-      total += detalle.precio * detalle.cantidad;
-      await DetallesPedidosModel.update(detalle, {
-        where: { id: detalle.id },
-      });
-    });
-    await PedidosModel.update({ total }, { where: { id: req.params.id } });
+    await PedidosModel.update(
+      { estado: req.body.estado },
+      {
+        where: { id: req.params.id },
+      }
+    );
     res.json({ message: "Registro actualizado exitosamente" });
   } catch (error) {
     res.json({ message: error.message });
@@ -102,19 +104,21 @@ export const updatePedido = async (req, res) => {
 //Eliminar un pedido y/o un/los detalles pedidos
 export const deletePedido = async (req, res) => {
   try {
-    await PedidosModel.destroy({
-      where: {
-        id: req.params.id,
-      },
-    });
+    console.log("Eliminando pedido con id:", req.params.id);
     await DetallesPedidosModel.destroy({
       where: {
         idPedido: req.params.id,
       },
     });
+    // Eliminar pedido principal
+    await PedidosModel.destroy({
+      where: {
+        id: req.params.id,
+      },
+    });
     res.json({ message: "Registro eliminado exitosamente" });
   } catch (error) {
+    console.error("Error al eliminar pedido:", error);
     res.json({ message: error.message });
   }
 };
-
